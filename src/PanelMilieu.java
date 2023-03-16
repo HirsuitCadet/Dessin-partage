@@ -45,6 +45,8 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			default:
 				break;
 		}
+
+		this.repaint();
 	}
 
 	@Override
