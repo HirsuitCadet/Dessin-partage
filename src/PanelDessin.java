@@ -62,7 +62,7 @@ public class PanelDessin extends JPanel implements ActionListener{
     }
 
     public Color getCouleurActuelle(){
-        return couleurActuelle;
+        return this.boutonsFonctions[4].getBackground();
     }
 
     @Override
