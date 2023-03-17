@@ -1,11 +1,14 @@
 import javax.swing.JPanel;
 
 import java.awt.Point;
+import java.awt.Shape;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.awt.Graphics;
+
+import java.util.ArrayList;
 
 public class PanelMilieu extends JPanel implements MouseListener{
 
@@ -15,6 +18,8 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	Point posSourisDebut;
 	Point posSourisFin;
+
+	ArrayList<Shape> alShapes;
 
 	public PanelMilieu(Controleur controleur){
 		ctrl = controleur;
