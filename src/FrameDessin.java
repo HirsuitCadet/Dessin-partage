@@ -12,7 +12,7 @@ public class FrameDessin extends JFrame{
 
         panelDessin = new PanelDessin(ctrl);
 
-        this.setSize(800, 800);
+        this.setSize(1000, 1000);
         this.setLocation(100, 100);
         this.setTitle("Dessin partagé");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

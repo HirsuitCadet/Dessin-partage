@@ -1,3 +1,4 @@
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -14,17 +15,20 @@ public class PanelDessin extends JPanel implements ActionListener{
     JPanel panelBoutonsFonctions;
 
     PanelMilieu panelMilieu;
+    int nbActif;
 
     String formeActuelle;
     Color  couleurActuelle;
 
     JButton[] boutonsFonctions = new JButton[7];
+    JButtonColor btnCouleur;
 
     public PanelDessin(Controleur controleur){
 
         ctrl = controleur;
         formeActuelle = "";
         couleurActuelle = Color.BLACK;
+        nbActif = 3;
 
         this.setLayout(new BorderLayout());
 
@@ -38,17 +42,23 @@ public class PanelDessin extends JPanel implements ActionListener{
         boutonsFonctions[1] = new JButton("Rond");
         boutonsFonctions[2] = new JButton("Ligne");
         boutonsFonctions[3] = new JButton("Texte");
-        boutonsFonctions[4] = new JButtonColor("");
-        boutonsFonctions[5] = new JButton("Remplir");
-        boutonsFonctions[6] = new JButton("Retour");
+        boutonsFonctions[4] = new JButton("Remplir");
+        boutonsFonctions[5] = new JButton("Retour Arriere");
+        boutonsFonctions[6] = new JButton("Retour Avant");
+
+        btnCouleur = new JButtonColor("");
 
         //Ajout des boutons au panel
+        panelBoutonsFonctions.add(btnCouleur);
+
         for(int i=0; i<boutonsFonctions.length; i++){
-            panelBoutonsFonctions.add(boutonsFonctions[i], BorderLayout.NORTH);
+            panelBoutonsFonctions.add(boutonsFonctions[i]);
         }
 
 
         //Ajout des listeners
+        btnCouleur.addActionListener(this);
+
         for(JButton btn : boutonsFonctions){
             btn.addActionListener(this);
         }
@@ -62,16 +72,28 @@ public class PanelDessin extends JPanel implements ActionListener{
     }
 
     public Color getCouleurActuelle(){
-        return this.boutonsFonctions[4].getBackground();
+        return this.btnCouleur.getColor();
+    }
+
+    public int getNbActif(){
+        return this.nbActif;
+    }
+
+    public void setNbActif(int nb){
+        this.nbActif += nb;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        for(JButton btn : boutonsFonctions){
-            if(e.getSource() == btn){
-                formeActuelle = btn.getText();
-                System.out.println("Forme actuelle : " + formeActuelle);
-            }
+    public void actionPerformed(ActionEvent e) 
+    {
+        if(e.getSource() == boutonsFonctions[5]) // Retour Arriere
+        {
+            this.nbActif++;
+        }
+
+        if (e.getSource() == boutonsFonctions[6]) // Retour Avant
+        {
+            this.nbActif--;
         }
     }
 
