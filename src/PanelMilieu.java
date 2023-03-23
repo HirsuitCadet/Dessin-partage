@@ -36,7 +36,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		g.drawLine(0,0,200,200);
 		forme = ctrl.getFormeActuelle();
 		switch(forme){
-			case "Carré":
+			case "Carré": 
 				g.drawRect(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
 				break;
 			case "Rond":
