@@ -58,4 +58,8 @@ public class Client implements Runnable {
         }
         return null;
     }
+
+    public String getNom(){
+        return this.nom;
+    }
 }
