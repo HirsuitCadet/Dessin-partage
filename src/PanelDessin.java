@@ -1,5 +1,7 @@
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,11 +15,9 @@ public class PanelDessin extends JPanel implements ActionListener{
     Controleur ctrl;
 
     JPanel panelBoutonsFonctions;
-
     PanelMilieu panelMilieu;
 
-    JButton[] boutonsFonctions = new JButton[7];
-    JButtonColor btnCouleur;
+    JButton[] boutonsFonctions = new JButton[8];
 
     public PanelDessin(Controleur controleur){
 
@@ -31,27 +31,21 @@ public class PanelDessin extends JPanel implements ActionListener{
         panelMilieu = new PanelMilieu(ctrl);
 
         //Création des boutons
-        boutonsFonctions[0] = new JButton("Carré");
-        boutonsFonctions[1] = new JButton("Rond");
-        boutonsFonctions[2] = new JButton("Ligne");
-        boutonsFonctions[3] = new JButton("Texte");
-        boutonsFonctions[4] = new JButton("Remplir");
-        boutonsFonctions[5] = new JButton("Retour Arriere");
-        boutonsFonctions[6] = new JButton("Retour Avant");
-
-        btnCouleur = new JButtonColor("");
+        boutonsFonctions[0] = new JButton("Couleur");
+        boutonsFonctions[1] = new JButton("Rectangle");
+        boutonsFonctions[2] = new JButton("Cercle");
+        boutonsFonctions[3] = new JButton("Ligne");
+        boutonsFonctions[4] = new JButton("Texte");
+        boutonsFonctions[5] = new JButton("Remplir");
+        boutonsFonctions[6] = new JButton("Retour Arriere");
+        boutonsFonctions[7] = new JButton("Retour Avant");
 
         //Ajout des boutons au panel
-        panelBoutonsFonctions.add(btnCouleur);
-
         for(int i=0; i<boutonsFonctions.length; i++){
             panelBoutonsFonctions.add(boutonsFonctions[i]);
         }
 
-
         //Ajout des listeners
-        btnCouleur.addActionListener(this);
-
         for(JButton btn : boutonsFonctions){
             btn.addActionListener(this);
         }
@@ -76,38 +70,48 @@ public class PanelDessin extends JPanel implements ActionListener{
     }
 
     public Color getCouleurActuelle(){
-        return this.btnCouleur.getColor();
+        return this.boutonsFonctions[0].getBackground();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getSource() == boutonsFonctions[0]) // Carré
+        if(e.getSource() == boutonsFonctions[0]) // Couleur
+        {
+            JColorChooser colorChooser = new JColorChooser();
+            JDialog dialog =  JColorChooser.createDialog(this, "Choix de la couleur", true, colorChooser, this, null);
+            dialog.setVisible(true);
+            Color color = colorChooser.getColor();
+            this.boutonsFonctions[0].setBackground(color);
+            this.ctrl.setCouleurActuelle(color);
+        }
+
+        if(e.getSource() == boutonsFonctions[1]) // Carré
         {
             this.ctrl.setFormeActuelle("Carré");
         }
 
-        if(e.getSource() == boutonsFonctions[1]) // Rond
+        if(e.getSource() == boutonsFonctions[2]) // Rond
         {
             this.ctrl.setFormeActuelle("Rond");
         }
 
-        if(e.getSource() == boutonsFonctions[2]) // Ligne
+        if(e.getSource() == boutonsFonctions[3]) // Ligne
         {
             this.ctrl.setFormeActuelle("Ligne");
         }
 
-        if(e.getSource() == boutonsFonctions[3]) // Texte
+        if(e.getSource() == boutonsFonctions[4]) // Texte
         {
             this.ctrl.setFormeActuelle("Texte");
         }
 
-        if(e.getSource() == boutonsFonctions[5]) // Retour Arriere
+        if(e.getSource() == boutonsFonctions[6]) // Retour Arriere
         {
             ctrl.adjustNbActif(-1);
         }
 
-        if (e.getSource() == boutonsFonctions[6]) // Retour Avant
+        if (e.getSource() == boutonsFonctions[7]) // Retour Avant
         {
             ctrl.adjustNbActif(1);
         }
