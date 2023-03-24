@@ -29,7 +29,8 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	public PanelMilieu(Controleur controleur){
 		ctrl = controleur;
-		formeActuelle = "";
+		formeActuelle = "Carré";
+		couleurActuelle = Color.BLACK;
 		posSourisDebut = new Point();
 		posSourisFin   = new Point();
 
@@ -91,15 +92,24 @@ public class PanelMilieu extends JPanel implements MouseListener{
 									couleurActuelle, true));
 				nbActif++;
 				break;
+		
 			case "Rond":
-				//g.drawOval(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
+				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y),
+									couleurActuelle, true));
+				nbActif++;
 				break;
+
 			case "Ligne":
-				//g.drawLine(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y);
+				this.listeFormes.add(new ShapeSpec(new Line2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y),
+									couleurActuelle, false));	
+				nbActif++;
 				break;
+
 			/*case "Texte":
 				g.drawString("Test", posSourisDebut.x, posSourisDebut.y);
-			*/default:
+			*/
+			
+			default:
 				break;
 		}
 

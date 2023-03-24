@@ -11,7 +11,7 @@ public class JButtonColor extends JButton implements ActionListener
     public JButtonColor(String text)
     {
         super(text);
-        this.color = Color.GREEN;
+        this.color = Color.BLACK;
         this.setBackground(color);
         this.colorChooser = new JColorChooser();
         this.dialog = JColorChooser.createDialog(this, "Choisir une couleur", true, this.colorChooser, this, null);
