@@ -1,8 +1,6 @@
 import javax.swing.JPanel;
 
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Shape;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,7 +27,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	public PanelMilieu(Controleur controleur){
 		ctrl = controleur;
-		formeActuelle = "Carré";
+		formeActuelle = "Rectangle";
 		couleurActuelle = Color.BLACK;
 		posSourisDebut = new Point();
 		posSourisFin   = new Point();
@@ -109,14 +107,14 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		}
 
 		switch(formeActuelle){
-			case "Carré":
+			case "Rectangle":
 
 				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, true));
 				nbActif++;
 				break;
 		
-			case "Rond":
+			case "Cercle":
 				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, true));
 				nbActif++;

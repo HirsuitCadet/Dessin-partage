@@ -1,23 +1,29 @@
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.Color;
 
-public class PanelDessin extends JPanel implements ActionListener{
+public class PanelDessin extends JPanel implements ActionListener, ItemListener{
 
     Controleur ctrl;
 
     JPanel panelBoutonsFonctions;
     PanelMilieu panelMilieu;
 
-    JButton[] boutonsFonctions = new JButton[8];
+    JButton[] boutonsFonctions;
+    CheckboxGroup cbg;
+    Checkbox[] cbFonctions;
+    JCheckBox cbFilled;
 
     public PanelDessin(Controleur controleur){
 
@@ -30,25 +36,43 @@ public class PanelDessin extends JPanel implements ActionListener{
 
         panelMilieu = new PanelMilieu(ctrl);
 
+        this.boutonsFonctions = new JButton[3];
+        this.cbg = new CheckboxGroup();
+        this.cbFonctions = new Checkbox[4];
+
         //Création des boutons
-        boutonsFonctions[0] = new JButton("Couleur");
-        boutonsFonctions[1] = new JButton("Rectangle");
-        boutonsFonctions[2] = new JButton("Cercle");
-        boutonsFonctions[3] = new JButton("Ligne");
-        boutonsFonctions[4] = new JButton("Texte");
-        boutonsFonctions[5] = new JButton("Remplir");
-        boutonsFonctions[6] = new JButton("Retour Arriere");
-        boutonsFonctions[7] = new JButton("Retour Avant");
+        boutonsFonctions[0] = new JButton();
+        boutonsFonctions[0].setBackground(Color.BLACK);
+        boutonsFonctions[1] = new JButton("Retour Arriere");
+        boutonsFonctions[2] = new JButton("Retour Avant");
+
+        cbFonctions[0] = new Checkbox("Rectangle", cbg, true);
+        cbFonctions[1] = new Checkbox("Cercle", cbg, false);
+        cbFonctions[2] = new Checkbox("Ligne", cbg, false);
+        cbFonctions[3] = new Checkbox("Texte", cbg, false);
+        cbFonctions[3].setEnabled(false);
+
+        cbFilled = new JCheckBox("Remplir");
 
         //Ajout des boutons au panel
         for(int i=0; i<boutonsFonctions.length; i++){
             panelBoutonsFonctions.add(boutonsFonctions[i]);
         }
 
+        for (int i=0; i<cbFonctions.length; i++){
+            panelBoutonsFonctions.add(cbFonctions[i]);
+        }
+        panelBoutonsFonctions.add(cbFilled);
+
+
         //Ajout des listeners
         for(JButton btn : boutonsFonctions){
             btn.addActionListener(this);
         }
+        for(Checkbox cb : cbFonctions){
+            cb.addItemListener(this);
+        }
+        cbFilled.addItemListener(this);
 
         this.add(panelBoutonsFonctions, BorderLayout.NORTH);
         this.add(panelMilieu, BorderLayout.CENTER);
@@ -73,6 +97,11 @@ public class PanelDessin extends JPanel implements ActionListener{
         return this.boutonsFonctions[0].getBackground();
     }
 
+    public boolean getIsFilled()
+    {
+        return this.cbFilled.isSelected();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -86,40 +115,28 @@ public class PanelDessin extends JPanel implements ActionListener{
             this.ctrl.setCouleurActuelle(color);
         }
 
-        if(e.getSource() == boutonsFonctions[1]) // Carré
-        {
-            this.ctrl.setFormeActuelle("Carré");
-        }
-
-        if(e.getSource() == boutonsFonctions[2]) // Rond
-        {
-            this.ctrl.setFormeActuelle("Rond");
-        }
-
-        if(e.getSource() == boutonsFonctions[3]) // Ligne
-        {
-            this.ctrl.setFormeActuelle("Ligne");
-        }
-
-        if(e.getSource() == boutonsFonctions[4]) // Texte
-        {
-            this.ctrl.setFormeActuelle("Texte");
-        }
-
-        if(e.getSource() == boutonsFonctions[6]) // Retour Arriere
+        if(e.getSource() == boutonsFonctions[1]) // Retour Arriere
         {
             ctrl.adjustNbActif(-1);
         }
 
-        if (e.getSource() == boutonsFonctions[7]) // Retour Avant
+        if (e.getSource() == boutonsFonctions[2]) // Retour Avant
         {
             ctrl.adjustNbActif(1);
+        }
+    }
+    
+    public void itemStateChanged(ItemEvent e){
+        for (int i=0; i<cbFonctions.length; i++)
+        {
+            if (e.getSource() == cbFonctions[i])
+            {
+                this.ctrl.setFormeActuelle(cbFonctions[i].getLabel());
+            }
         }
     }
 
     public PanelMilieu getPanelMilieu() {
         return panelMilieu;
     }
-    
-
 }
