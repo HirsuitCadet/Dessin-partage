@@ -35,7 +35,11 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(50, 40, 30, 60), Color.RED, true));
 		this.listeFormes.add(new ShapeSpec(new Line2D.Double(50, 40, 30, 60), Color.BLUE, false));	
 		this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(80,70,60,100), Color.BLUE, false));
-		nbActif = 3;
+		this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(100, 40, 30, 60), Color.ORANGE, false));
+		this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(150, 140, 30, 60), Color.CYAN, true));
+		this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(200, 240, 30, 60), Color.BLACK, false));
+		this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(250, 340, 30, 60), Color.MAGENTA, true));
+		nbActif = 7;
 
 		this.addMouseListener(this);
 	}
@@ -61,7 +65,6 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 		for(int i=0; i<nbActif; i++)
 		{
-			System.out.println("i = " + i);
 			ShapeSpec s = (ShapeSpec) listeFormes.get(i);
 			g2.setColor(s.getColor());
 			
