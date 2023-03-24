@@ -86,27 +86,50 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	public void ajouterShapeSpec()
 	{
+		double xDebut = 0.0;
+		double yDebut = 0.0;
+		double xFin = 0.0;
+		double yFin = 0.0;
+
+		if(posSourisDebut.x < posSourisFin.x){//si la souris part de gauche et va à droite
+			xDebut = posSourisDebut.x;
+			xFin   = posSourisFin.x;
+		}
+		else{//si la souris part de droite et va à gauche
+			xDebut = posSourisFin.x;
+			xFin   = posSourisDebut.x;
+		}
+
+		if(posSourisDebut.y < posSourisFin.y){//si la souris part d'en haut et va vers le bas
+			yDebut = posSourisDebut.y;
+			yFin   = posSourisFin.y;
+		}else{//si la souris part d'en bas et va vers le haut
+			yDebut = posSourisFin.y;
+			yFin   = posSourisDebut.y;
+		}
+
 		switch(formeActuelle){
 			case "Carré":
-				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y),
+
+				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, true));
 				nbActif++;
 				break;
 		
 			case "Rond":
-				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y),
+				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, true));
 				nbActif++;
 				break;
 
 			case "Ligne":
-				this.listeFormes.add(new ShapeSpec(new Line2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y),
+				this.listeFormes.add(new ShapeSpec(new Line2D.Double(xDebut, yDebut, xFin, yFin),
 									couleurActuelle, false));	
 				nbActif++;
 				break;
 
 			/*case "Texte":
-				g.drawString("Test", posSourisDebut.x, posSourisDebut.y);
+				g.drawString("Test", xDebut, posSourisDebut.y);
 			*/
 			
 			default:
