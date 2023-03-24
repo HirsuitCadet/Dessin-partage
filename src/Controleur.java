@@ -1,35 +1,27 @@
 import java.awt.Color;
 
-import com.formdev.flatlaf.FlatLightLaf;
-
 public class Controleur {
 
     FrameDessin frmDessin;
 
-    PanelDessin panelDessin;
-    PanelMilieu panelMilieu;
-
     public Controleur() {
         frmDessin = new FrameDessin(this);
-        panelDessin = frmDessin.getPanelDessin();
-        panelMilieu = panelDessin.getPanelMilieu();
     }
 
-    public Color getCouleurActuelle() {
-        return panelDessin.getCouleurActuelle();
+    public void setCouleurActuelle(Color couleur) {
+        frmDessin.setCouleurActuelle(couleur);
     }
 
     public void setFormeActuelle(String forme){
-        panelMilieu.setFormeActuelle(forme);
+        frmDessin.setFormeActuelle(forme);
     }
 
     public void adjustNbActif(int nb)
     {
-        this.panelMilieu.adjustNbActif(nb);
+        frmDessin.adjustNbActif(nb);
     }
 
     public static void main(String[] args) {
-        FlatLightLaf.setup();
         new Controleur();
     }
 }

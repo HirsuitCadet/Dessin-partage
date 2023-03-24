@@ -16,15 +16,12 @@ public class PanelDessin extends JPanel implements ActionListener{
 
     PanelMilieu panelMilieu;
 
-    Color  couleurActuelle;
-
     JButton[] boutonsFonctions = new JButton[7];
     JButtonColor btnCouleur;
 
     public PanelDessin(Controleur controleur){
 
         ctrl = controleur;
-        couleurActuelle = Color.BLACK;
 
         this.setLayout(new BorderLayout());
 
@@ -61,6 +58,21 @@ public class PanelDessin extends JPanel implements ActionListener{
 
         this.add(panelBoutonsFonctions, BorderLayout.NORTH);
         this.add(panelMilieu, BorderLayout.CENTER);
+    }
+
+    public void setCouleurActuelle(Color couleur)
+    {
+        this.panelMilieu.setCouleurActuelle(couleur);
+    }
+
+    public void setFormeActuelle(String forme)
+    {
+        this.panelMilieu.setFormeActuelle(forme);
+    }
+
+    public void adjustNbActif(int nb)
+    {
+        this.panelMilieu.adjustNbActif(nb);
     }
 
     public Color getCouleurActuelle(){

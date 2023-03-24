@@ -19,6 +19,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	Controleur ctrl;
 
 	String formeActuelle;
+	Color couleurActuelle;
 
 	Point posSourisDebut;
 	Point posSourisFin;
@@ -61,10 +62,14 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		formeActuelle = forme;
 	}
 
+	public void setCouleurActuelle(Color couleur)
+	{
+		couleurActuelle = couleur;
+	}
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g.setColor(ctrl.getCouleurActuelle());
 
 		for(int i=0; i<nbActif; i++)
 		{
@@ -76,22 +81,28 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			else
 				g2.draw(s.getShape());
 		}
+	}
 
+	public void ajouterShapeSpec()
+	{
 		switch(formeActuelle){
 			case "Carré":
-				g.drawRect(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
+				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y),
+									couleurActuelle, true));
 				break;
 			case "Rond":
-				g.drawOval(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
+				//g.drawOval(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
 				break;
 			case "Ligne":
-				g.drawLine(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y);
+				//g.drawLine(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y);
 				break;
 			/*case "Texte":
 				g.drawString("Test", posSourisDebut.x, posSourisDebut.y);
 			*/default:
 				break;
 		}
+
+		repaint();
 	}
 
 	@Override
@@ -117,7 +128,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent me) {
 		posSourisFin = new Point(me.getX(),me.getY());
-		repaint();
+		ajouterShapeSpec();
 	}
 	
 }
