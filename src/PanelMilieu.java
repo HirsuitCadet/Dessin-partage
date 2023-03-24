@@ -23,7 +23,8 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	Point posSourisDebut;
 	Point posSourisFin;
 
-	ArrayList<Shape> listeFormes = new ArrayList<Shape>();
+	ArrayList<ShapeSpec> listeFormes = new ArrayList<ShapeSpec>();
+	int nbActif;
 
 	public PanelMilieu(Controleur controleur){
 		ctrl = controleur;
@@ -31,23 +32,43 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		posSourisDebut = new Point();
 		posSourisFin   = new Point();
 
-		this.listeFormes.add(new Rectangle2D.Double(50, 40, 
-		                                            30, 60));
-		this.listeFormes.add(new Ellipse2D.Double(80,70,60,100));
-		this.listeFormes.add(new Line2D.Double(150,150,100,120));	
-		
+		this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(50, 40, 30, 60), Color.RED, true));
+		this.listeFormes.add(new ShapeSpec(new Line2D.Double(50, 40, 30, 60), Color.BLUE, false));	
+		this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(80,70,60,100), Color.BLUE, false));
+		nbActif = 3;
+
 		this.addMouseListener(this);
+	}
+
+	public void adjustNbActif(int nb)
+	{
+		if (nbActif + nb >= 0 && nbActif + nb <= listeFormes.size())
+		{
+			nbActif += nb;
+			repaint();
+		}
+		else
+		{
+			System.out.println("Erreur nb");
+		}
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(ctrl.getCouleurActuelle());
-		g.drawLine(0,0,200,200);
 		forme = ctrl.getFormeActuelle();
 
-		for(Shape s : listeFormes){
-			g2.draw(s);
+		for(int i=0; i<nbActif; i++)
+		{
+			System.out.println("i = " + i);
+			ShapeSpec s = (ShapeSpec) listeFormes.get(i);
+			g2.setColor(s.getColor());
+			
+			if (s.isFilled())
+				g2.fill(s.getShape());
+			else
+				g2.draw(s.getShape());
 		}
 
 		/*switch(forme){

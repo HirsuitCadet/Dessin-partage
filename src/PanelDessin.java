@@ -15,7 +15,6 @@ public class PanelDessin extends JPanel implements ActionListener{
     JPanel panelBoutonsFonctions;
 
     PanelMilieu panelMilieu;
-    int nbActif;
 
     String formeActuelle;
     Color  couleurActuelle;
@@ -28,12 +27,11 @@ public class PanelDessin extends JPanel implements ActionListener{
         ctrl = controleur;
         formeActuelle = "";
         couleurActuelle = Color.BLACK;
-        nbActif = 3;
 
         this.setLayout(new BorderLayout());
 
         panelBoutonsFonctions = new JPanel();
-        panelBoutonsFonctions.setLayout(new GridLayout(1,7));
+        panelBoutonsFonctions.setLayout(new GridLayout(1,8));
 
         panelMilieu = new PanelMilieu(ctrl);
 
@@ -75,25 +73,17 @@ public class PanelDessin extends JPanel implements ActionListener{
         return this.btnCouleur.getColor();
     }
 
-    public int getNbActif(){
-        return this.nbActif;
-    }
-
-    public void setNbActif(int nb){
-        this.nbActif += nb;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) 
     {
         if(e.getSource() == boutonsFonctions[5]) // Retour Arriere
         {
-            this.nbActif++;
+            ctrl.adjustNbActif(-1);
         }
 
         if (e.getSource() == boutonsFonctions[6]) // Retour Avant
         {
-            this.nbActif--;
+            ctrl.adjustNbActif(1);
         }
     }
 

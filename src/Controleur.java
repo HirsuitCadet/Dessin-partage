@@ -21,6 +21,11 @@ public class Controleur {
         return panelDessin.getFormeActuelle();
     }
 
+    public void adjustNbActif(int nb)
+    {
+        this.panelMilieu.adjustNbActif(nb);
+    }
+
     public static void main(String[] args) {
         new Controleur();
     }
