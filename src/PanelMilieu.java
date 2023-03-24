@@ -89,6 +89,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			case "Carré":
 				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y),
 									couleurActuelle, true));
+				nbActif++;
 				break;
 			case "Rond":
 				//g.drawOval(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
