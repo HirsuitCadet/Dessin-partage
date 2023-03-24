@@ -123,7 +123,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 				break;
 
 			case "Ligne":
-				this.listeFormes.add(new ShapeSpec(new Line2D.Double(xDebut, yDebut, xFin, yFin),
+				this.listeFormes.add(new ShapeSpec(new Line2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y),
 									couleurActuelle, false));	
 				nbActif++;
 				break;
