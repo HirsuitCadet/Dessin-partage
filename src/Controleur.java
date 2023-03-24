@@ -17,8 +17,8 @@ public class Controleur {
         return panelDessin.getCouleurActuelle();
     }
 
-    public String getFormeActuelle(){
-        return panelDessin.getFormeActuelle();
+    public void setFormeActuelle(String forme){
+        panelMilieu.setFormeActuelle(forme);
     }
 
     public void adjustNbActif(int nb)

@@ -16,7 +16,6 @@ public class PanelDessin extends JPanel implements ActionListener{
 
     PanelMilieu panelMilieu;
 
-    String formeActuelle;
     Color  couleurActuelle;
 
     JButton[] boutonsFonctions = new JButton[7];
@@ -25,7 +24,6 @@ public class PanelDessin extends JPanel implements ActionListener{
     public PanelDessin(Controleur controleur){
 
         ctrl = controleur;
-        formeActuelle = "";
         couleurActuelle = Color.BLACK;
 
         this.setLayout(new BorderLayout());
@@ -65,10 +63,6 @@ public class PanelDessin extends JPanel implements ActionListener{
         this.add(panelMilieu, BorderLayout.CENTER);
     }
 
-    public String getFormeActuelle(){
-        return formeActuelle;
-    }
-
     public Color getCouleurActuelle(){
         return this.btnCouleur.getColor();
     }
@@ -76,6 +70,26 @@ public class PanelDessin extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        if(e.getSource() == boutonsFonctions[0]) // Carré
+        {
+            this.ctrl.setFormeActuelle("Carré");
+        }
+
+        if(e.getSource() == boutonsFonctions[1]) // Rond
+        {
+            this.ctrl.setFormeActuelle("Rond");
+        }
+
+        if(e.getSource() == boutonsFonctions[2]) // Ligne
+        {
+            this.ctrl.setFormeActuelle("Ligne");
+        }
+
+        if(e.getSource() == boutonsFonctions[3]) // Texte
+        {
+            this.ctrl.setFormeActuelle("Texte");
+        }
+
         if(e.getSource() == boutonsFonctions[5]) // Retour Arriere
         {
             ctrl.adjustNbActif(-1);

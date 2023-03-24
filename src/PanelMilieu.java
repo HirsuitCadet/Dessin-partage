@@ -18,7 +18,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	Controleur ctrl;
 
-	String forme;
+	String formeActuelle;
 
 	Point posSourisDebut;
 	Point posSourisFin;
@@ -28,7 +28,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	public PanelMilieu(Controleur controleur){
 		ctrl = controleur;
-		forme = "";
+		formeActuelle = "";
 		posSourisDebut = new Point();
 		posSourisFin   = new Point();
 
@@ -57,11 +57,14 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		}
 	}
 
+	public void setFormeActuelle(String forme){
+		formeActuelle = forme;
+	}
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(ctrl.getCouleurActuelle());
-		forme = ctrl.getFormeActuelle();
 
 		for(int i=0; i<nbActif; i++)
 		{
@@ -74,7 +77,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 				g2.draw(s.getShape());
 		}
 
-		/*switch(forme){
+		switch(formeActuelle){
 			case "Carré":
 				g.drawRect(posSourisDebut.x, posSourisDebut.y, posSourisFin.x - posSourisDebut.x, posSourisFin.y - posSourisDebut.y);
 				break;
@@ -84,11 +87,11 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			case "Ligne":
 				g.drawLine(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y);
 				break;
-			case "Texte":
+			/*case "Texte":
 				g.drawString("Test", posSourisDebut.x, posSourisDebut.y);
-			default:
+			*/default:
 				break;
-		}*/
+		}
 	}
 
 	@Override
@@ -108,12 +111,13 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-		posSourisDebut = me.getLocationOnScreen();
+		posSourisDebut = new Point(me.getX(), me.getY());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		posSourisFin = me.getLocationOnScreen();
+		posSourisFin = new Point(me.getX(),me.getY());
+		repaint();
 	}
 	
 }
