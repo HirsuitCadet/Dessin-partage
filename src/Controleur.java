@@ -9,8 +9,7 @@ public class Controleur {
 
     public Controleur(Client client) {   
         this.client = client;    
-        frmDessin = new FrameDessin(this);
-        
+        frmDessin = new FrameDessin(this);      
         
     }
 
@@ -25,12 +24,6 @@ public class Controleur {
     public void adjustNbActif(int nb)
     {
         frmDessin.adjustNbActif(nb);
-    }
-
-    public static void main(String[] args) {
-        FlatLightLaf.setup();
-        new FrameChoix();
-        //new Controleur(null);
     }
 
     public void dessinerRond(int x, int y, int rayon){

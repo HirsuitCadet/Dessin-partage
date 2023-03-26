@@ -18,6 +18,7 @@ public class Client{
             e.printStackTrace();
         }
         this.nom = nom;
+        new Controleur(this);
 
         try{
             PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -41,9 +42,5 @@ public class Client{
 		} catch(UnknownHostException uhe) { 
 		} catch(IOException ioe) {}
     }    
-
-    public void lancer(){
-        new Controleur(this);
-    }
 }
     
