@@ -23,6 +23,11 @@ public class Controleur {
         frmDessin.adjustNbActif(nb);
     }
 
+    public void setIsFilled(boolean isFilled)
+    {
+        frmDessin.setIsFilled(isFilled);
+    }
+
     public int getNbshapes(){
         return frmDessin.getNbShapes();
     }
