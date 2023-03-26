@@ -33,8 +33,8 @@ public class Service extends Thread{
             brServeur = new BufferedReader(new InputStreamReader(System.in));                           // réception des données du serveur
             pwServeur = new PrintWriter(System.out, true);                                    // envoie des données vers le serveur
 
-            oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            ois = new ObjectInputStream(clientSocket.getInputStream());
+            //oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            //ois = new ObjectInputStream(clientSocket.getInputStream());
 
             pwServeur.println("Serivce -> Serveur: Service lancé");
         } catch (IOException e) {
@@ -42,7 +42,8 @@ public class Service extends Thread{
         }
     }
 
-    public void run(){    
+    public void run(){   
+    
         String commande = attendreCommande();
         while (!commande.equals("quitter")) {
             try {
@@ -76,7 +77,6 @@ public class Service extends Thread{
                     pwClient.println("Commande inconnue");
             }
         }
-
     }
 
     public void sendShape(ShapeSpec shape){
