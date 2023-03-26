@@ -27,7 +27,7 @@ public class Service extends Thread{
         this.serveur = sv;
         this.connexionVersClient = clientSocket;  
         try{
-            //brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
+            brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
             pwClient = new PrintWriter(clientSocket.getOutputStream(), true);                 // envoie des données vers le client
 
             brServeur = new BufferedReader(new InputStreamReader(System.in));                           // réception des données du serveur

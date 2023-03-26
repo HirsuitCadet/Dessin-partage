@@ -18,6 +18,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 	String formeActuelle;
 	Color couleurActuelle;
+	boolean isFilled;
 
 	Point posSourisDebut;
 	Point posSourisFin;
@@ -29,6 +30,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		ctrl = controleur;
 		formeActuelle = "Rectangle";
 		couleurActuelle = Color.BLACK;
+		isFilled = false;
 		posSourisDebut = new Point();
 		posSourisFin   = new Point();
 
@@ -64,6 +66,11 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	public void setCouleurActuelle(Color couleur)
 	{
 		couleurActuelle = couleur;
+	}
+
+	public void setIsFilled(boolean isFilled)
+	{
+		this.isFilled = isFilled;
 	}
 
 	public void paintComponent(Graphics g){
@@ -110,14 +117,14 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			case "Rectangle":
 
 				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
-									couleurActuelle, true));
+									couleurActuelle, isFilled));
 				ctrl.addShape(this.listeFormes.get(nbActif));
 				nbActif++;
 				break;
 		
 			case "Cercle":
 				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
-									couleurActuelle, true));
+									couleurActuelle, isFilled));
 				ctrl.addShape(this.listeFormes.get(nbActif));
 				nbActif++;
 				break;
