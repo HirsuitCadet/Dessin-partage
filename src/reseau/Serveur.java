@@ -4,11 +4,7 @@ import java.util.*;
 
 public class Serveur {
     private static List<ShapeSpec> shapes = new ArrayList<>();
-    private static List<Service> alClients = new ArrayList<Service>();
-
-    ObjectInputStream ois;
-    ObjectOutputStream oos;
- 
+    private static List<Service> alClients = new ArrayList<Service>(); 
 
     public Serveur(){
         try {
@@ -32,8 +28,8 @@ public class Serveur {
     private static String demanderNom(Socket clientSocket) {
         System.out.println("Demande du nom du client");
         try {        
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));           
             out.println("Veuillez entrer votre nom");
             String nom = in.readLine();
             System.out.println("Nom du client: " + nom);
