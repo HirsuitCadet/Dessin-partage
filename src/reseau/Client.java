@@ -15,30 +15,31 @@ import javax.swing.JTextField;
 
 public class Client{
 
+    private Controleur c;
     private Socket clientSocket;
     private String nom;
     private Socket serveur;
     PrintWriter pw;
     BufferedReader brService;
 
-    public Client(String Ip, String nom) {
+    public Client(String Ip, String nom ) {
+        new FrameDessin();
         try {
             this.clientSocket = new Socket(Ip, 9000);
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         this.nom = nom;
-        new Controleur(this);
-
         try{
             pw = new PrintWriter(clientSocket.getOutputStream(), true);
             brService = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         
-            String msgDepuisService = brService.readLine();
+            String msgDepuisService = brService.readLine();/*
             if(msgDepuisService.equals("Veuillez entrer votre nom") || msgDepuisService.equals("Ce nom est déjà utilisé, veuillez en choisir un autre: ")) {
                afficherFrameNom();
-            }
+            }*/
             System.out.println(msgDepuisService);
             Scanner clavier = new Scanner(System.in);
             String msgVersService = clavier.nextLine();
@@ -46,8 +47,7 @@ public class Client{
                 pw.println(msgVersService);
                 System.out.println("a"+brService.readLine());
                 pw.flush();
-                msgVersService = clavier.nextLine();
-               
+                msgVersService = clavier.nextLine();               
             }
             pw.println("quitter");
             pw.flush();
@@ -60,7 +60,7 @@ public class Client{
     
 
     public void  afficherFrameNom() {
-       new FrameNom(this);
+       FrameNom frameNom = new FrameNom();
     }
 
     public void envoyerNom(String nom){

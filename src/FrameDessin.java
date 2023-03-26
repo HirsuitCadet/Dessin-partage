@@ -8,8 +8,8 @@ public class FrameDessin extends JFrame{
 
     PanelDessin panelDessin;
 
-    public FrameDessin(Controleur controleur){
-        ctrl = controleur;
+    public FrameDessin(){
+        //ctrl = controleur;
 
         panelDessin = new PanelDessin(ctrl);
 

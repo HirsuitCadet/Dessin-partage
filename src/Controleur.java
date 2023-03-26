@@ -3,11 +3,9 @@ import java.awt.Color;
 public class Controleur {
 
     FrameDessin frmDessin;
-    Client client;
 
-    public Controleur(Client client) {   
-        this.client = client;    
-        frmDessin = new FrameDessin(this);      
+    public Controleur() {   
+        frmDessin = new FrameDessin();      
         
     }
 

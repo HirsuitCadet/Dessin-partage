@@ -44,7 +44,7 @@ public class FrameChoix extends JFrame{
                     /*TODO: Nouvelle Instance de client*/
                     String nom = txtNom.getText();
                     String ip = txtIp.getText();
-                    new Client("127.0.0.1", "Bonjour");
+                    Client c = new Client("192.168.1.42", "Bonjour");
                     dispose();
                 }
             });
