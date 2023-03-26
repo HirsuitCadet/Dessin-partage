@@ -24,7 +24,8 @@ public class Client{
 
     public Client(String Ip, String nom ) {
         UILauncher ui = new UILauncher(this);
-        ui.start;
+        ui.start();
+        
         try {
             this.clientSocket = new Socket(Ip, 9000);
             

@@ -1,11 +1,11 @@
 public class UILauncher extends Thread{
 
 
-    public Client;
-    public Controleur;
+    public Client client;
+    public Controleur controleur;
 
     public UILauncher(Client c){
-        this.clint = c;
+        this.client = c;
     }
     
     public void run(){
