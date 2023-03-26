@@ -20,6 +20,8 @@ public class Client extends Thread{
     private Socket serveur;
     PrintWriter pw;
     BufferedReader brService;
+    ObjectOutputStream oos;
+    ObjectInputStream ois;
     Controleur ctrl;
 
     public Client(String nom, String Ip) {     
@@ -70,7 +72,12 @@ public class Client extends Thread{
     }
 
     public void addShape(ShapeSpec shapeSpec) {
-       //ObjectInput oi = 
+        try {
+            oos.writeObject(shapeSpec);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }         
     }
 
 }

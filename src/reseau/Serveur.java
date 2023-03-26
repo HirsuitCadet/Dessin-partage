@@ -5,6 +5,9 @@ import java.util.*;
 public class Serveur {
     private static List<String> shapes = new ArrayList<>();
     private static List<Service> alClients = new ArrayList<Service>();
+
+    ObjectInputStream ois;
+    ObjectOutputStream oos;
  
 
     public Serveur(){
@@ -14,6 +17,8 @@ public class Serveur {
             int nb = 0;
             while (true) {
                 Socket clientSocket = serverSocket.accept();
+                ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
                 System.out.println("Client connecté: " + clientSocket);
                 String nom = demanderNom(clientSocket);
                 Service s = new Service(nom, clientSocket);
