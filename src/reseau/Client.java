@@ -76,6 +76,7 @@ public class Client extends Thread{
     public void addShape(ShapeSpec shapeSpec) {
         try {
             oos.writeObject(shapeSpec);
+            System.out.println("Objet envoyé (client)");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

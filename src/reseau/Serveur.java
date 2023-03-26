@@ -17,8 +17,8 @@ public class Serveur {
             int nb = 0;
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());                
                 System.out.println("Client connecté: " + clientSocket);
                 String nom = demanderNom(clientSocket);
                 Service s = new Service(nom, clientSocket);
