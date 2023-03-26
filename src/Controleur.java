@@ -23,11 +23,6 @@ public class Controleur {
         frmDessin.adjustNbActif(nb);
     }
 
-
-    public void dessinerRond(int x, int y, int rayon){
-        //client..dessinerRond(x, y, rayon);
-    }
-
     public int getNbshapes(){
         return frmDessin.getNbShapes();
     }

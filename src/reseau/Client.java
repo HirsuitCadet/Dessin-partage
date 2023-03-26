@@ -22,8 +22,9 @@ public class Client extends Thread{
     BufferedReader brService;
     Controleur ctrl;
 
-    public Client(String Ip, String nom) {     
+    public Client(String nom, String Ip) {     
         ctrl = new Controleur(this);
+        System.out.println("Valeur IP : " + Ip);
         try {
             this.clientSocket = new Socket(Ip, 9000);
             
@@ -69,7 +70,7 @@ public class Client extends Thread{
     }
 
     public void addShape(ShapeSpec shapeSpec) {
-       ObjectInput oi = 
+       //ObjectInput oi = 
     }
 
 }
