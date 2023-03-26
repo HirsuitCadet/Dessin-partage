@@ -46,7 +46,7 @@ public class FrameChoix extends JFrame{
                     String ip = txtIp.getText();
                     System.out.println(nom);
                     System.out.println(ip);
-                    Client c = new Client(ip,nom);
+                    Client c = new Client(nom, ip);
                     c.start();
                     dispose();
                 }
