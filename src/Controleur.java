@@ -5,7 +5,7 @@ public class Controleur {
     FrameDessin frmDessin;
 
     public Controleur() {   
-        frmDessin = new FrameDessin();      
+        frmDessin = new FrameDessin(this);      
         
     }
 
