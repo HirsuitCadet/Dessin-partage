@@ -1,65 +1,39 @@
 import java.io.*;
 import java.net.*;
-import java.util.*;
-import java.awt.Shape;
+import java.util.Scanner;
 
-public class Client implements Runnable {
+public class Client{
+
     private Socket clientSocket;
     private String nom;
     private Socket serveur;
 
-    public Client(Socket clientSocket, String nom) {
-        this.clientSocket = clientSocket;
+    public Client(String Ip, String nom) {
+        try {
+            this.clientSocket = new Socket(Ip, 9000);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         this.nom = nom;
-    }
 
-    public void run() {
-        try {
-            serveur = new Socket(InetAddress.getLocalHost(),9000);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+        try{
+            PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            String msgDepuisService = br.readLine();
+			System.out.println("reÃ§u du service : "+msgDepuisService);
+			Scanner clavier = new Scanner(System.in);
+			String msgVersService = clavier.nextLine();
+			while(!msgVersService.equalsIgnoreCase("quit")) {
+				pw.println(msgVersService);
+				pw.flush();
+				msgVersService = clavier.nextLine();
+			}
+			pw.println("quitter");
+			pw.flush();
+			clientSocket.close();
+		} catch(UnknownHostException uhe) { 
+		} catch(IOException ioe) {}
 
-            while (true) {
-                String message = in.readLine();
-                if (message == null) {
-                    System.out.println("Client deconnecté: " + clientSocket);
-                    return;
-                }
-                String commande = this.attendreCommande();
-                switch(commande){
-                    case "Dessiner":
-                        break;
-                    case "retourArriere":
-                        break;
-                    case "retourAvant":
-                        break;
-                    case "quitter":
-                        clientSocket.close();
-                        break;
-                    default:
-                        out.println("Commande inconnue");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String attendreCommande(){
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            out.println("Veuillez entrer une commande: ");
-            String commande = in.readLine();
-            System.out.println("Commande du client: " + commande);
-            return commande;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String getNom(){
-        return this.nom;
     }
 }

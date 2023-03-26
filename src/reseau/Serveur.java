@@ -4,21 +4,22 @@ import java.util.*;
 
 public class Serveur {
     private static List<String> shapes = new ArrayList<>();
-    private static List<Client> alClients = new ArrayList<Client>();
+    private static List<Service> alClients = new ArrayList<Service>();
+ 
 
-    public static void main(String[] args) {
+    public Serveur(){
         try {
             ServerSocket serverSocket = new ServerSocket(9000);
             System.out.println("Serveur démarré sur le port 9000");
-
+            int nb = 0;
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Nouveau client connecté: " + clientSocket);
-                
-                Client c = new Client(clientSocket, demanderNom(clientSocket));                 
-                Thread thread = new Thread(c);
-                alClients.add(c);
-                thread.start();
+                System.out.println("Client connecté: " + clientSocket);
+                //String nom = demanderNom(clientSocket);
+                String nom = "C"+nb++;
+                Service s = new Service(nom, clientSocket);
+                s.start();
+                alClients.add(s);                
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,7 +27,9 @@ public class Serveur {
     }
 
     private static String demanderNom(Socket clientSocket) {
+        System.out.println("Demande du nom du client");
         try {
+        
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             out.println("Veuillez entrer votre nom");
@@ -38,6 +41,7 @@ public class Serveur {
             }
             return nom;
         } catch (IOException e) {
+            System.out.println("Erreur lors de la demande du nom du client");
             e.printStackTrace();
         }
 
@@ -45,8 +49,8 @@ public class Serveur {
     }
 
     private static boolean nomLibre(String nom){
-        for(Client c : alClients){
-            if(c.getNom().equals(nom)){
+        for(Service s : alClients){
+            if(s.getNom().equals(nom)){
                 return true;
             }
         }

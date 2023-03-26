@@ -7,7 +7,8 @@ public class Controleur {
     FrameDessin frmDessin;
 
     public Controleur() {
-        frmDessin = new FrameDessin(this);
+        //frmDessin = new FrameDessin(this);
+        new FrameChoix(this);
     }
 
     public void setCouleurActuelle(Color couleur) {
