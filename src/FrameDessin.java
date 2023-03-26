@@ -40,6 +40,11 @@ public class FrameDessin extends JFrame{
         panelDessin.adjustNbActif(nb);
     }
 
+    public void setIsFilled(boolean isFilled)
+    {
+        panelDessin.setIsFilled(isFilled);
+    }
+
     public PanelDessin getPanelDessin() {
         return panelDessin;
     }

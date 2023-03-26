@@ -98,9 +98,9 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
         return this.boutonsFonctions[0].getBackground();
     }
 
-    public boolean getIsFilled()
+    public void setIsFilled(boolean isFilled)
     {
-        return this.cbFilled.isSelected();
+        this.panelMilieu.setIsFilled(isFilled);
     }
 
     @Override
@@ -134,6 +134,11 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
             {
                 this.ctrl.setFormeActuelle(cbFonctions[i].getLabel());
             }
+        }
+
+        if (e.getSource() == this.cbFilled)
+        {
+            this.ctrl.setIsFilled(cbFilled.isSelected());
         }
     }
 
