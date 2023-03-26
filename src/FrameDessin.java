@@ -1,6 +1,7 @@
 import java.awt.Color;
 
 import javax.swing.JFrame;
+import javax.swing.SwingWorker;
 
 public class FrameDessin extends JFrame{
 
@@ -8,9 +9,16 @@ public class FrameDessin extends JFrame{
 
     PanelDessin panelDessin;
 
-    public FrameDessin(){
-        //ctrl = controleur;
+    public FrameDessin(Controleur controleur){
+        ctrl = controleur;
 
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            public Void doInBackground() {
+            
+                return null;
+            }
+        };
         panelDessin = new PanelDessin(ctrl);
 
         this.setSize(1000, 750);
