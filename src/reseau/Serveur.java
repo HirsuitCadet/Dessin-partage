@@ -15,9 +15,9 @@ public class Serveur {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connecté: " + clientSocket);
-                //String nom = demanderNom(clientSocket);
-                String nom = "C"+nb++;
+                String nom = demanderNom(clientSocket);
                 Service s = new Service(nom, clientSocket);
+                System.out.println("Lancement du service");
                 s.start();
                 alClients.add(s);                
             }
@@ -49,12 +49,15 @@ public class Serveur {
     }
 
     private static boolean nomLibre(String nom){
+        if(alClients.isEmpty()){
+            return true;
+        }
         for(Service s : alClients){
             if(s.getNom().equals(nom)){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
 }

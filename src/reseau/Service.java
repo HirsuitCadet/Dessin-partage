@@ -29,12 +29,16 @@ public class Service extends Thread{
             String commande = attendreCommande();
             switch(commande){
                 case "Dessiner":
+                    System.out.println("Dessiner");
                     break;
                 case "retourArriere":
+                    System.out.println("retourArriere");
                     break;
                 case "retourAvant":
+                    System.out.println("retourAvant");
                     break;
                 case "quitter":
+                    System.out.println("quitter");
                     try {
                         connexionVersClient.close();
                     } catch (IOException e) {

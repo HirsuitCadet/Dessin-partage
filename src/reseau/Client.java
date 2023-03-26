@@ -20,18 +20,20 @@ public class Client{
         try{
             PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String msgDepuisService = br.readLine();
-			System.out.println("reÃ§u du service : "+msgDepuisService);
-			Scanner clavier = new Scanner(System.in);
-			String msgVersService = clavier.nextLine();
-			while(!msgVersService.equalsIgnoreCase("quit")) {
-				pw.println(msgVersService);
-				pw.flush();
-				msgVersService = clavier.nextLine();
-			}
-			pw.println("quitter");
-			pw.flush();
-			clientSocket.close();
+            while(true){                
+                String msgDepuisService = br.readLine();
+                System.out.println("reçu du service : "+msgDepuisService);
+                Scanner clavier = new Scanner(System.in);
+                String msgVersService = clavier.nextLine();
+                while(!msgVersService.equalsIgnoreCase("quit")) {
+                    pw.println(msgVersService);
+                    pw.flush();
+                    msgVersService = clavier.nextLine();
+                }
+                //pw.println("quitter");
+                //pw.flush();
+                //clientSocket.close();
+            }           
 		} catch(UnknownHostException uhe) { 
 		} catch(IOException ioe) {}
 
