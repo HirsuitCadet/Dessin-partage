@@ -6,21 +6,21 @@ import java.awt.event.*;
 public class FrameChoix extends JFrame{
 
 
-    public FrameChoix(Controleur controleur) {
+    public FrameChoix() {
         super("Choix du mode");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(300, 200);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
-        this.add(new PanelChoix(controleur), BorderLayout.CENTER);
+        this.add(new PanelChoix(), BorderLayout.CENTER);
         this.setVisible(true);
     }
 
 
     class PanelChoix extends JPanel{
 
-        public PanelChoix(Controleur controleur) {
+        public PanelChoix() {
             this.setLayout(new GridLayout(2, 1));
             JButton btnServeur = new JButton("Héberger un dessin");
             JButton btnClient = new JButton("Rejoindre un dessin");

@@ -19,7 +19,8 @@ public class Serveur {
                 Service s = new Service(nom, clientSocket);
                 System.out.println("Lancement du service");
                 s.start();
-                alClients.add(s);                
+                alClients.add(s);
+                attendreCommande();                
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,6 +47,37 @@ public class Serveur {
         }
 
         return null;
+    }
+
+    private static void attendreCommande(){
+        //Ecouter les commandes des services et les traiter
+        while(!alClients.isEmpty()){
+            for(Service s : alClients){
+                String commande = s.attendreCommande();
+                switch(commande){
+                    case "Dessiner":
+                        System.out.println("Dessiner");
+                        break;
+                    case "retourArriere":
+                        System.out.println("retourArriere");
+                        break;
+                    case "retourAvant":
+                        System.out.println("retourAvant");
+                        break;
+                    case "quitter":
+                        System.out.println("quitter");
+                        try {
+                            s.connexionVersClient.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        s.pwClient.println("Commande inconnue");
+                }
+            }
+        }
     }
 
     private static boolean nomLibre(String nom){

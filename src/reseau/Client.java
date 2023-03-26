@@ -30,9 +30,9 @@ public class Client{
                     pw.flush();
                     msgVersService = clavier.nextLine();
                 }
-                //pw.println("quitter");
-                //pw.flush();
-                //clientSocket.close();
+                pw.println("quitter");
+                pw.flush();
+                clientSocket.close();
             }           
 		} catch(UnknownHostException uhe) { 
 		} catch(IOException ioe) {}

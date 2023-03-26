@@ -5,10 +5,12 @@ import com.formdev.flatlaf.FlatLightLaf;
 public class Controleur {
 
     FrameDessin frmDessin;
+    Service service;
 
-    public Controleur() {
-        //frmDessin = new FrameDessin(this);
-        new FrameChoix(this);
+    public Controleur(Service service) {
+        service = service;
+        frmDessin = new FrameDessin(this);
+        
     }
 
     public void setCouleurActuelle(Color couleur) {
@@ -26,6 +28,11 @@ public class Controleur {
 
     public static void main(String[] args) {
         FlatLightLaf.setup();
-        new Controleur();
+        new FrameChoix();
+        //new Controleur();
+    }
+
+    public void dessinerRond(int x, int y, int rayon){
+        service.dessinerRond(x, y, rayon);
     }
 }

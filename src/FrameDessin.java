@@ -5,11 +5,13 @@ import javax.swing.JFrame;
 public class FrameDessin extends JFrame{
 
     Controleur ctrl;
+    Service service;
 
     PanelDessin panelDessin;
 
     public FrameDessin(Controleur controleur){
         ctrl = controleur;
+        service = service;
 
         panelDessin = new PanelDessin(ctrl);
 

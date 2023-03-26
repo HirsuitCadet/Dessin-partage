@@ -1,3 +1,4 @@
+import java.net.DatagramPacket;
 import java.net.Socket;
 import java.util.Scanner;
 import java.net.Socket;
@@ -9,24 +10,34 @@ import java.io.InputStreamReader;
 public class Service extends Thread{
 
     Socket connexionVersClient;
-	BufferedReader br = null;
-	PrintWriter pw = null;
+	BufferedReader brClient;
+	PrintWriter pwClient;
+    BufferedReader brServeur;
+    PrintWriter pwServeur;
 	String nom;
 
     public Service(String nom, Socket clientSocket) {
         this.nom = nom;
         this.connexionVersClient = clientSocket;
+        new Controleur(this);
         try{
-            br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            pw = new PrintWriter(clientSocket.getOutputStream(), true);    
+            brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
+            pwClient = new PrintWriter(clientSocket.getOutputStream(), true);                 // envoie des données vers le client
+            brServeur = new BufferedReader(new InputStreamReader(System.in));                  // réception des données du serveur
+            pwServeur = new PrintWriter(System.out, true);                                     // envoie des données vers le serveur
+            pwClient.println("Service lancé");
+            pwServeur.println("Serivce -> Serveur: Service lancé");
+            DatagramPacket paquet = new DatagramPacket(new byte[1024], 1024); 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void run(){
-        while (true) {
-            String commande = attendreCommande();
+        /*String commande = attendreCommande();
+        /*
+        while (commande.equals("quitter")) {
+            commande = attendreCommande();
             switch(commande){
                 case "Dessiner":
                     System.out.println("Dessiner");
@@ -47,16 +58,17 @@ public class Service extends Thread{
                     }
                     break;
                 default:
-                    pw.println("Commande inconnue");
+                    pwClient.println("Commande inconnue");
             }
         }
+        */
     }
 
-    private String attendreCommande(){
+    public String attendreCommande(){
         try {
-            pw.println("Veuillez entrer une commande: ");
-            String commande = br.readLine();
-            System.out.println("Commande du client: " + commande);
+            pwClient.println("Veuillez entrer une commande: ");
+            String commande = brClient.readLine();
+           pwServeur.println("Commande du client (service): " + commande);
             return commande;
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,4 +79,9 @@ public class Service extends Thread{
     public String getNom(){
         return this.nom;
     }
+
+    public void dessinerRond(int x, int y, int rayon){
+        pwServeur.println("DessinerRond " + x + " " + y + " " + rayon);
+    }
+
 }
