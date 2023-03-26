@@ -33,7 +33,7 @@ public class Service extends Thread{
 
             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-            
+
             pwServeur.println("Serivce -> Serveur: Service lancé");
             DatagramPacket paquet = new DatagramPacket(new byte[1024], 1024); 
         } catch (IOException e) {
@@ -43,6 +43,13 @@ public class Service extends Thread{
 
     public void run(){    
         String commande = attendreCommande();
+        try {
+            oos.writeObject(ois.readObject());
+            System.out.println("Objet envoyé");
+        } catch (ClassNotFoundException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         while (!commande.equals("quitter")) {
             commande = attendreCommande();
             switch(commande){
