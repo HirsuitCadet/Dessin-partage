@@ -118,12 +118,14 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			case "Cercle":
 				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, true));
+				ctrl.addShape(this.listeFormes.get(nbActif));
 				nbActif++;
 				break;
 
 			case "Ligne":
 				this.listeFormes.add(new ShapeSpec(new Line2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y),
-									couleurActuelle, false));	
+									couleurActuelle, false));
+				ctrl.addShape(this.listeFormes.get(nbActif));	
 				nbActif++;
 				break;
 
