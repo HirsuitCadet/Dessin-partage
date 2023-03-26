@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-import com.formdev.flatlaf.FlatLightLaf;
+//import com.formdev.flatlaf.FlatLightLaf;
 
 public class Controleur {
 
@@ -8,7 +8,7 @@ public class Controleur {
     Service service;
 
     public Controleur(Service service) {
-        service = service;
+        this.service = service;
         frmDessin = new FrameDessin(this);
         
     }
@@ -27,7 +27,7 @@ public class Controleur {
     }
 
     public static void main(String[] args) {
-        FlatLightLaf.setup();
+        //FlatLightLaf.setup();
         new FrameChoix();
         //new Controleur();
     }
