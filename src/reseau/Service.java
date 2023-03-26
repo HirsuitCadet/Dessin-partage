@@ -25,7 +25,6 @@ public class Service extends Thread{
             brServeur = new BufferedReader(new InputStreamReader(System.in));                  // réception des données du serveur
             pwServeur = new PrintWriter(System.out, true);                                     // envoie des données vers le serveur
             pwServeur.println("Serivce -> Serveur: Service lancé");
-            new FrameDessin();
             DatagramPacket paquet = new DatagramPacket(new byte[1024], 1024); 
         } catch (IOException e) {
             e.printStackTrace();
