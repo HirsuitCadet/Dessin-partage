@@ -22,6 +22,7 @@ public class Client extends Thread{
     BufferedReader brService;
 
     public Client(String Ip, String nom) {     
+        new Controleur(this);
         try {
             this.clientSocket = new Socket(Ip, 9000);
             
