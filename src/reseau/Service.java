@@ -45,14 +45,14 @@ public class Service extends Thread{
 
     public void run(){    
         String commande = attendreCommande();
-        try {
-            serveur.addShape((ShapeSpec)ois.readObject());
-            System.out.println("Objet envoyé");
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         while (!commande.equals("quitter")) {
+            try {
+                serveur.addShape((ShapeSpec)ois.readObject());
+                System.out.println("Objet envoyé");
+            } catch (ClassNotFoundException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             commande = attendreCommande();
             switch(commande){
                 case "Dessiner":
