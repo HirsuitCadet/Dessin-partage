@@ -22,14 +22,7 @@ public class Client{
     PrintWriter pw;
     BufferedReader brService;
 
-    public Client(String Ip, String nom, Controleur c) {
-        try{
-            new FrameDessin(c);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-      
+    public Client(String Ip, String nom, Controleur c) {     
 
         try {
             this.clientSocket = new Socket(Ip, 9000);

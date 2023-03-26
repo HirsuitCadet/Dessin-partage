@@ -12,14 +12,8 @@ public class FrameDessin extends JFrame{
     public FrameDessin(Controleur controleur){
         ctrl = controleur;
 
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            public Void doInBackground() {
-            
-                return null;
-            }
-        };
         panelDessin = new PanelDessin(ctrl);
+        System.out.println("panel créé");
 
         this.setSize(1000, 750);
         this.setLocation(20, 20);

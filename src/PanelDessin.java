@@ -33,6 +33,7 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
 
         panelBoutonsFonctions = new JPanel();
         panelBoutonsFonctions.setLayout(new GridLayout(1,8));
+        System.out.println("PanelBouton créé");
 
         panelMilieu = new PanelMilieu(ctrl);
 
