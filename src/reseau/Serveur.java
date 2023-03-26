@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.*;
 
 public class Serveur {
-    private static List<String> shapes = new ArrayList<>();
+    private static List<ShapeSpec> shapes = new ArrayList<>();
     private static List<Service> alClients = new ArrayList<Service>();
 
     ObjectInputStream ois;
@@ -16,11 +16,10 @@ public class Serveur {
             System.out.println("Serveur démarré sur le port 9000");
             int nb = 0;
             while (true) {
-                Socket clientSocket = serverSocket.accept();
-                ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());                
+                Socket clientSocket = serverSocket.accept();            
                 System.out.println("Client connecté: " + clientSocket);
                 String nom = demanderNom(clientSocket);
-                Service s = new Service(nom, clientSocket);
+                Service s = new Service(nom, clientSocket, this);
                 System.out.println("Lancement du service");
                 s.start();
                 alClients.add(s);   
@@ -72,8 +71,10 @@ public class Serveur {
         }
     }
 
-    public void receive(DatagramPacket dp){
-
+    public void addShape(ShapeSpec sp){
+        this.shapes.add(sp);
+        System.out.println("Objet ajouté");
     }
+
 
 }

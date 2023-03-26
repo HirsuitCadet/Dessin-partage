@@ -19,10 +19,12 @@ public class Service extends Thread{
     ObjectOutputStream oos;
     ObjectInputStream ois;
     PrintWriter pwServeur;
+    Serveur serveur;
 	String nom;
 
-    public Service(String nom, Socket clientSocket) {
+    public Service(String nom, Socket clientSocket, Serveur sv) {
         this.nom = nom;
+        this.serveur = sv;
         this.connexionVersClient = clientSocket;  
         try{
             brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
@@ -44,7 +46,7 @@ public class Service extends Thread{
     public void run(){    
         String commande = attendreCommande();
         try {
-            oos.writeObject(ois.readObject());
+            serveur.addShape((ShapeSpec)ois.readObject());
             System.out.println("Objet envoyé");
         } catch (ClassNotFoundException | IOException e) {
             // TODO Auto-generated catch block
