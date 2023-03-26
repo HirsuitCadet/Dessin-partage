@@ -43,4 +43,8 @@ public class FrameDessin extends JFrame{
     public PanelDessin getPanelDessin() {
         return panelDessin;
     }
+
+    public int getNbShapes(){
+        return panelDessin.getPanelMilieu().getNbShapes();
+    }
 }

@@ -111,6 +111,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, true));
+				ctrl.addShape(this.listeFormes.get(nbActif));
 				nbActif++;
 				break;
 		
@@ -161,6 +162,11 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent me) {
 		posSourisFin = new Point(me.getX(),me.getY());
 		ajouterShapeSpec();
+	}
+
+	public int getNbShapes()
+	{
+		return nbActif;
 	}
 	
 }

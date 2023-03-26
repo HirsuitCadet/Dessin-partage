@@ -27,4 +27,12 @@ public class Controleur {
     public void dessinerRond(int x, int y, int rayon){
         //client..dessinerRond(x, y, rayon);
     }
+
+    public int getNbshapes(){
+        return frmDessin.getNbShapes();
+    }
+
+    public void addShape(ShapeSpec shape){
+        client.addShape(shape);
+    }
 }

@@ -2,10 +2,13 @@ import java.net.DatagramPacket;
 import java.net.Socket;
 import java.util.Scanner;
 import java.net.Socket;
+import java.awt.Shape;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Service extends Thread{
 
@@ -13,6 +16,8 @@ public class Service extends Thread{
 	BufferedReader brClient;
 	PrintWriter pwClient;
     BufferedReader brServeur;
+    ObjectOutputStream oos;
+    ObjectInputStream ois;
     PrintWriter pwServeur;
 	String nom;
 
@@ -22,8 +27,13 @@ public class Service extends Thread{
         try{
             brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
             pwClient = new PrintWriter(clientSocket.getOutputStream(), true);                 // envoie des données vers le client
-            brServeur = new BufferedReader(new InputStreamReader(System.in));                  // réception des données du serveur
-            pwServeur = new PrintWriter(System.out, true);                                     // envoie des données vers le serveur
+
+            brServeur = new BufferedReader(new InputStreamReader(System.in));                           // réception des données du serveur
+            pwServeur = new PrintWriter(System.out, true);                                    // envoie des données vers le serveur
+
+            ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
+            
             pwServeur.println("Serivce -> Serveur: Service lancé");
             DatagramPacket paquet = new DatagramPacket(new byte[1024], 1024); 
         } catch (IOException e) {
@@ -59,6 +69,10 @@ public class Service extends Thread{
             }
         }
 
+    }
+
+    public void sendShape(ShapeSpec shape){
+      
     }
 
     public String attendreCommande(){

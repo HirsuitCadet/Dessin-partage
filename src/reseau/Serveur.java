@@ -28,8 +28,7 @@ public class Serveur {
 
     private static String demanderNom(Socket clientSocket) {
         System.out.println("Demande du nom du client");
-        try {
-        
+        try {        
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             out.println("Veuillez entrer votre nom");
@@ -67,6 +66,10 @@ public class Serveur {
         for (Service s : alClients) {
             s.removeLastShape();
         }
+    }
+
+    public void receive(DatagramPacket dp){
+
     }
 
 }

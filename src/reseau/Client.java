@@ -20,9 +20,10 @@ public class Client extends Thread{
     private Socket serveur;
     PrintWriter pw;
     BufferedReader brService;
+    Controleur ctrl;
 
     public Client(String Ip, String nom) {     
-        new Controleur(this);
+        ctrl = new Controleur(this);
         try {
             this.clientSocket = new Socket(Ip, 9000);
             
@@ -48,7 +49,7 @@ public class Client extends Thread{
             String msgVersService = clavier.nextLine();
             while(!msgVersService.equalsIgnoreCase("quit")) {
                 pw.println(msgVersService);
-                System.out.println("a"+brService.readLine());
+                System.out.println(brService.readLine());
                 pw.flush();
                 msgVersService = clavier.nextLine();               
             }
@@ -69,5 +70,10 @@ public class Client extends Thread{
     public void envoyerNom(String nom){
         pw.println(nom);
     }
+
+    public void addShape(ShapeSpec shapeSpec) {
+       ObjectInput oi = 
+    }
+
 }
     

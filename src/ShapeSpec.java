@@ -1,6 +1,7 @@
 import java.awt.*;
+import java.io.Serializable;
 
-public class ShapeSpec
+public class ShapeSpec implements Serializable
 {   
     private Shape shape;
     private Color color;
