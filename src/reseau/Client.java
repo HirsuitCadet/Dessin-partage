@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Client{
+public class Client extends Thread{
 
     private Controleur c;
     private Socket clientSocket;
@@ -32,6 +32,10 @@ public class Client{
             e.printStackTrace();
         }
         this.nom = nom;
+
+    }  
+
+    public void run(){
         try{
             pw = new PrintWriter(clientSocket.getOutputStream(), true);
             brService = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -55,7 +59,7 @@ public class Client{
           
 		} catch(UnknownHostException uhe) { 
 		} catch(IOException ioe) {}
-    }  
+    }
     
     
 

@@ -60,4 +60,13 @@ public class Serveur {
         return true;
     }
 
+    public void retourArriere(){
+        if(!shapes.isEmpty()){
+            shapes.remove(shapes.size()-1);
+        }
+        for (Service s : alClients) {
+            s.removeLastShape();
+        }
+    }
+
 }

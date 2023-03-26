@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Starter",
+            "request": "launch",
+            "mainClass": "Starter",
+            "projectName": "Dessin-partage_44ce069a"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

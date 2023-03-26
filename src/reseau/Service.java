@@ -81,4 +81,19 @@ public class Service extends Thread{
         pwServeur.println("DessinerRond " + x + " " + y + " " + rayon);
     }
 
+    public int getNbshapes(){
+        pwServeur.println("getNbshapes");
+        int nb=-1;
+        try{
+             nb = Integer.parseInt(brServeur.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nb;
+    }
+
+    public void removeLastShape(){
+        pwClient.println("removeLastShape");
+    }
+
 }
