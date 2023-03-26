@@ -5,11 +5,12 @@ import java.awt.Color;
 public class Controleur {
 
     FrameDessin frmDessin;
-    Service service;
+    Client client;
 
-    public Controleur(Service service) {
-        this.service = service;
+    public Controleur(Client client) {   
+        this.client = client;    
         frmDessin = new FrameDessin(this);
+        
         
     }
 
@@ -29,10 +30,10 @@ public class Controleur {
     public static void main(String[] args) {
         //FlatLightLaf.setup();
         new FrameChoix();
-        //new Controleur();
+        //new Controleur(null);
     }
 
     public void dessinerRond(int x, int y, int rayon){
-        service.dessinerRond(x, y, rayon);
+        //client..dessinerRond(x, y, rayon);
     }
 }

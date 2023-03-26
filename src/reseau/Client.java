@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import javax.sound.sampled.Control;
+
 public class Client{
 
     private Socket clientSocket;
@@ -19,23 +21,29 @@ public class Client{
 
         try{
             PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            while(true){                
-                String msgDepuisService = br.readLine();
-                System.out.println("reçu du service : "+msgDepuisService);
-                Scanner clavier = new Scanner(System.in);
-                String msgVersService = clavier.nextLine();
-                while(!msgVersService.equalsIgnoreCase("quit")) {
-                    pw.println(msgVersService);
-                    pw.flush();
-                    msgVersService = clavier.nextLine();
-                }
-                pw.println("quitter");
+            BufferedReader brService = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                        
+            String msgDepuisService = brService.readLine();
+            System.out.println("reçu du service : "+msgDepuisService);
+            Scanner clavier = new Scanner(System.in);
+            String msgVersService = clavier.nextLine();
+            while(!msgVersService.equalsIgnoreCase("quit")) {
+                pw.println(msgVersService);
+                System.out.println("a"+brService.readLine());
                 pw.flush();
-                clientSocket.close();
-            }           
+                msgVersService = clavier.nextLine();
+               
+            }
+            pw.println("quitter");
+            pw.flush();
+            clientSocket.close();
+          
 		} catch(UnknownHostException uhe) { 
 		} catch(IOException ioe) {}
+    }    
 
+    public void lancer(){
+        new Controleur(this);
     }
 }
+    

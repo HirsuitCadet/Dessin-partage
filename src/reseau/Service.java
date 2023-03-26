@@ -18,14 +18,12 @@ public class Service extends Thread{
 
     public Service(String nom, Socket clientSocket) {
         this.nom = nom;
-        this.connexionVersClient = clientSocket;
-        new Controleur(this);
+        this.connexionVersClient = clientSocket;  
         try{
             brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
             pwClient = new PrintWriter(clientSocket.getOutputStream(), true);                 // envoie des données vers le client
             brServeur = new BufferedReader(new InputStreamReader(System.in));                  // réception des données du serveur
             pwServeur = new PrintWriter(System.out, true);                                     // envoie des données vers le serveur
-            pwClient.println("Service lancé");
             pwServeur.println("Serivce -> Serveur: Service lancé");
             DatagramPacket paquet = new DatagramPacket(new byte[1024], 1024); 
         } catch (IOException e) {
@@ -33,23 +31,22 @@ public class Service extends Thread{
         }
     }
 
-    public void run(){
-        /*String commande = attendreCommande();
-        /*
-        while (commande.equals("quitter")) {
+    public void run(){    
+        String commande = attendreCommande();
+        while (!commande.equals("quitter")) {
             commande = attendreCommande();
             switch(commande){
                 case "Dessiner":
-                    System.out.println("Dessiner");
+                    pwClient.println("Dessiner");
                     break;
                 case "retourArriere":
-                    System.out.println("retourArriere");
+                    pwClient.println("retourArriere");
                     break;
                 case "retourAvant":
-                    System.out.println("retourAvant");
+                    pwClient.println("retourAvant");
                     break;
                 case "quitter":
-                    System.out.println("quitter");
+                    pwClient.println("quitter");
                     try {
                         connexionVersClient.close();
                     } catch (IOException e) {
@@ -61,14 +58,14 @@ public class Service extends Thread{
                     pwClient.println("Commande inconnue");
             }
         }
-        */
+
     }
 
     public String attendreCommande(){
         try {
             pwClient.println("Veuillez entrer une commande: ");
             String commande = brClient.readLine();
-           pwServeur.println("Commande du client (service): " + commande);
+            pwServeur.println("Commande du client (service): " + commande);
             return commande;
         } catch (IOException e) {
             e.printStackTrace();
