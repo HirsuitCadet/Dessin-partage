@@ -3,8 +3,10 @@ import java.awt.Color;
 public class Controleur {
 
     FrameDessin frmDessin;
+    Service service;
 
-    public Controleur() {   
+    public Controleur(Service s) {
+        this.service = s;   
         frmDessin = new FrameDessin(this);              
     }
 

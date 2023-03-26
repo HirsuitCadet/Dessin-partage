@@ -15,15 +15,13 @@ import javax.swing.JTextField;
 
 public class Client extends Thread{
 
-    private Controleur c;
     private Socket clientSocket;
     private String nom;
     private Socket serveur;
     PrintWriter pw;
     BufferedReader brService;
 
-    public Client(String Ip, String nom, Controleur c) {     
-
+    public Client(String Ip, String nom) {     
         try {
             this.clientSocket = new Socket(Ip, 9000);
             
