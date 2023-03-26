@@ -24,11 +24,6 @@ public class Controleur {
         frmDessin.adjustNbActif(nb);
     }
 
-    public static void main(String[] args) {
-        FlatLightLaf.setup();
-        new FrameChoix();
-        //new Controleur(null);
-    }
 
     public void dessinerRond(int x, int y, int rayon){
         //client..dessinerRond(x, y, rayon);
