@@ -29,7 +29,7 @@ public class Client extends Thread{
         System.out.println("Valeur IP : " + Ip);
         try {
             this.clientSocket = new Socket(Ip, 9000);
-            oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            //oos = new ObjectOutputStream(clientSocket.getOutputStream());
             //ois = new ObjectInputStream(clientSocket.getInputStream());
             
         } catch (IOException e) {
@@ -74,13 +74,15 @@ public class Client extends Thread{
     }
 
     public void addShape(ShapeSpec shapeSpec) {
+        /*
         try {
             oos.writeObject(shapeSpec);
             System.out.println("Objet envoyé (client)");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }         
+        }       
+        */  
     }
 
 }
