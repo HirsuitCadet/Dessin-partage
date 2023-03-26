@@ -1,9 +1,0 @@
-public class Starter{
-
-    public Starter(){}
-
-    public static void main(String[] args){
-        FlatLightLaf.setup();
-        new FrameChoix();
-    }
-}

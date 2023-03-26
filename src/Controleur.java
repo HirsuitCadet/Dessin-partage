@@ -1,7 +1,5 @@
 import java.awt.Color;
 
-import com.formdev.flatlaf.FlatLightLaf;
-
 public class Controleur {
 
     FrameDessin frmDessin;
