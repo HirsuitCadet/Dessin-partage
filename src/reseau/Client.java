@@ -29,6 +29,8 @@ public class Client extends Thread{
         System.out.println("Valeur IP : " + Ip);
         try {
             this.clientSocket = new Socket(Ip, 9000);
+            oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            ois = new ObjectInputStream(clientSocket.getInputStream());
             
         } catch (IOException e) {
             // TODO Auto-generated catch block
