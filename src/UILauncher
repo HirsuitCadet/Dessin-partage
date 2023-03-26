@@ -1,0 +1,13 @@
+public class UILauncher extends Thread{
+
+
+    public Client;
+    public Controleur;
+
+    public UILauncher(Client c){
+        this.clint = c;
+    }
+    public void run(){
+        new FrameDessin();
+    }
+}

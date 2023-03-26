@@ -23,7 +23,8 @@ public class Client{
     BufferedReader brService;
 
     public Client(String Ip, String nom ) {
-        new FrameDessin();
+        UILauncher ui = new UILauncher(this);
+        ui.start;
         try {
             this.clientSocket = new Socket(Ip, 9000);
             
