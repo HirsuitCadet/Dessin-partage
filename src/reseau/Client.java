@@ -40,10 +40,7 @@ public class Client extends Thread{
             pw = new PrintWriter(clientSocket.getOutputStream(), true);
             brService = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         
-            String msgDepuisService = brService.readLine();/*
-            if(msgDepuisService.equals("Veuillez entrer votre nom") || msgDepuisService.equals("Ce nom est déjà utilisé, veuillez en choisir un autre: ")) {
-               afficherFrameNom();
-            }*/
+            String msgDepuisService = brService.readLine();
             System.out.println(msgDepuisService);
             Scanner clavier = new Scanner(System.in);
             String msgVersService = clavier.nextLine();
