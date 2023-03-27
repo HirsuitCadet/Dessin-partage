@@ -80,6 +80,8 @@ public class Client extends Thread{
                 }
             }
         } catch(Exception ex) {
+            System.out.println("Client fermé");
+            this.ctrl.closeFrame();
             ex.printStackTrace();
         }
     }

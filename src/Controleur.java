@@ -48,10 +48,15 @@ public class Controleur {
         }
 
         // MAJ IHM
+        this.frmDessin.repaint();
 
     }
 
     public void setShapes(ArrayList<ShapeSpec> shapes) {
         frmDessin.setShapes(shapes);
+    }
+
+    public void closeFrame(){
+        frmDessin.dispose();
     }
 }
