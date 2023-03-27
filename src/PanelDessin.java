@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.awt.Color;
 
 public class PanelDessin extends JPanel implements ActionListener, ItemListener{
@@ -144,5 +145,13 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
 
     public PanelMilieu getPanelMilieu() {
         return panelMilieu;
+    }
+
+    public void addShape(ShapeSpec shape) {
+        this.panelMilieu.addShape(shape);
+    }
+
+    public void setShapes(ArrayList<ShapeSpec> shapes) {
+        this.panelMilieu.setShapes(shapes);
     }
 }

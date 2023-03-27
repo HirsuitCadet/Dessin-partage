@@ -5,11 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.sound.sampled.Control;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -17,9 +19,6 @@ public class Client extends Thread{
 
     private Socket clientSocket;
     private String nom;
-    private Socket serveur;
-    PrintWriter pw;
-    BufferedReader brService;
     ObjectOutputStream oos;
     ObjectInputStream ois;
     Controleur ctrl;
@@ -29,60 +28,72 @@ public class Client extends Thread{
         System.out.println("Valeur IP : " + Ip);
         try {
             this.clientSocket = new Socket(Ip, 9000);
-            //oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            //ois = new ObjectInputStream(clientSocket.getInputStream());
-            
+            oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            ois = new ObjectInputStream(clientSocket.getInputStream());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         this.nom = nom;
 
+        try
+        {
+            this.envoyerNom(nom);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }  
 
-    public void run(){
-        try{
-            pw = new PrintWriter(clientSocket.getOutputStream(), true);
-            brService = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                        
-            String msgDepuisService = brService.readLine();
-            System.out.println(msgDepuisService);
-            Scanner clavier = new Scanner(System.in);
-            String msgVersService = clavier.nextLine();
-            while(!msgVersService.equalsIgnoreCase("quit")) {
-                pw.println(msgVersService);
-                System.out.println(brService.readLine());
-                pw.flush();
-                msgVersService = clavier.nextLine();               
-            }
-            pw.println("quitter");
-            pw.flush();
-            clientSocket.close();
-          
-		} catch(UnknownHostException uhe) { 
-		} catch(IOException ioe) {}
-    }
-    
-    
-
-    public void  afficherFrameNom() {
-       FrameNom frameNom = new FrameNom();
-    }
-
-    public void envoyerNom(String nom){
-        pw.println(nom);
-    }
-
-    public void addShape(ShapeSpec shapeSpec) {
-        /*
+    public void run() {
         try {
-            oos.writeObject(shapeSpec);
-            System.out.println("Objet envoyé (client)");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }       
-        */  
+            while(this.clientSocket.isConnected()) {
+                System.out.println("----------");
+                String message = this.ois.readUTF();
+                System.out.println("Reçu : " + message);
+                switch(message) {
+                    case "nom":
+                        String nom = this.ois.readUTF();
+                        System.out.println("Nom reçu : " + nom);
+                        if(nom.equals("false")) {
+                            JOptionPane.showMessageDialog(null, "Ce nom est déjà pris");
+                            System.out.println("Ce nom est déjà pris");
+                        } else {
+                            System.out.println("On demande les formes");
+                            this.oos.writeUTF("formes");
+                            this.oos.flush();
+                        }
+                        break;
+                    case "shape":
+                        ShapeSpec shape = (ShapeSpec)ois.readObject();
+                        ctrl.addShape(shape, false);
+                        break;
+
+                    case "sendAutreShape":
+                        ShapeSpec shape2 = (ShapeSpec)ois.readObject();
+                        ctrl.addShape(shape2, false);
+                        break;
+                    
+                    case "formes":
+                        ArrayList<ShapeSpec> shapes = (ArrayList<ShapeSpec>)ois.readObject();
+                        ctrl.setShapes(shapes);
+                        break;
+                }
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void envoyerNom(String nom) throws IOException{
+        this.oos.writeUTF("nom");
+        this.oos.writeUTF(nom);
+        this.oos.flush();
+    }
+
+    public void addShape(ShapeSpec shapeSpec) throws IOException {
+        this.oos.writeUTF("shape");
+        this.oos.writeObject(shapeSpec);
+        this.oos.flush();
     }
 
 }

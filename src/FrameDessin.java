@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
@@ -51,5 +52,13 @@ public class FrameDessin extends JFrame{
 
     public int getNbShapes(){
         return panelDessin.getPanelMilieu().getNbShapes();
+    }
+
+    public void addShape(ShapeSpec shape) {
+        panelDessin.addShape(shape);
+    }
+
+    public void setShapes(ArrayList<ShapeSpec> shapes) {
+        this.panelDessin.setShapes(shapes);
     }
 }

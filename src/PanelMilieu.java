@@ -118,21 +118,21 @@ public class PanelMilieu extends JPanel implements MouseListener{
 
 				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, isFilled));
-				ctrl.addShape(this.listeFormes.get(nbActif));
+				ctrl.addShape(this.listeFormes.get(nbActif), true);
 				nbActif++;
 				break;
 		
 			case "Cercle":
 				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
 									couleurActuelle, isFilled));
-				ctrl.addShape(this.listeFormes.get(nbActif));
+				ctrl.addShape(this.listeFormes.get(nbActif), true);
 				nbActif++;
 				break;
 
 			case "Ligne":
 				this.listeFormes.add(new ShapeSpec(new Line2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y),
 									couleurActuelle, false));
-				ctrl.addShape(this.listeFormes.get(nbActif));	
+				ctrl.addShape(this.listeFormes.get(nbActif), true);	
 				nbActif++;
 				break;
 
@@ -177,5 +177,16 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	{
 		return nbActif;
 	}
+
+	public void addShape(ShapeSpec s)
+	{
+		this.listeFormes.add(s);
+		nbActif++;
+	}
+
+	public void setShapes(ArrayList<ShapeSpec> shapes) {
+        this.listeFormes = shapes;
+		this.nbActif = shapes.size();
+    }
 	
 }

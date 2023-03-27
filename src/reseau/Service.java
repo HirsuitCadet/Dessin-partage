@@ -13,86 +13,69 @@ import java.io.ObjectOutputStream;
 public class Service extends Thread{
 
     Socket connexionVersClient;
-	BufferedReader brClient;
-	PrintWriter pwClient;
-    BufferedReader brServeur;
     ObjectOutputStream oos;
     ObjectInputStream ois;
-    PrintWriter pwServeur;
     Serveur serveur;
 	String nom;
 
-    public Service(String nom, Socket clientSocket, Serveur sv) {
-        this.nom = nom;
+    public Service(Socket clientSocket, Serveur sv) {
         this.serveur = sv;
         this.connexionVersClient = clientSocket;  
         try{
-            brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));        // réception des données du client
-            pwClient = new PrintWriter(clientSocket.getOutputStream(), true);                 // envoie des données vers le client
-
-            brServeur = new BufferedReader(new InputStreamReader(System.in));                           // réception des données du serveur
-            pwServeur = new PrintWriter(System.out, true);                                    // envoie des données vers le serveur
-
-            //oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            //ois = new ObjectInputStream(clientSocket.getInputStream());
-
-            pwServeur.println("Serivce -> Serveur: Service lancé");
+            oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            ois = new ObjectInputStream(clientSocket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void run(){   
-    
-        String commande = attendreCommande();
-        while (!commande.equals("quitter")) {
-            try {
-                serveur.addShape((ShapeSpec)ois.readObject());
-                System.out.println("Objet envoyé");
-            } catch (ClassNotFoundException | IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            commande = attendreCommande();
-            switch(commande){
-                case "Dessiner":
-                    pwClient.println("Dessiner");
-                    break;
-                case "retourArriere":
-                    pwClient.println("retourArriere");
-                    break;
-                case "retourAvant":
-                    pwClient.println("retourAvant");
-                    break;
-                case "quitter":
-                    pwClient.println("quitter");
-                    try {
-                        connexionVersClient.close();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    break;
-                default:
-                    pwClient.println("Commande inconnue");
-            }
-        }
-    }
-
-    public void sendShape(ShapeSpec shape){
-      
-    }
-
-    public String attendreCommande(){
+    public void run() {  
         try {
-            pwClient.println("Veuillez entrer une commande: ");
-            String commande = brClient.readLine();
-            pwServeur.println("Commande du client (service): " + commande);
-            return commande;
-        } catch (IOException e) {
-            e.printStackTrace();
+            String commande = attendreCommande();
+            while (!commande.equals("quitter")) {
+                switch(commande){
+                    case "shape":
+                        serveur.addShape(this, (ShapeSpec)ois.readObject());
+                        break;
+                    case "nom":
+                        this.nom = ois.readUTF();
+
+                        this.oos.writeUTF("nom");
+                        this.oos.writeUTF("true");
+                        this.oos.flush();
+
+                        break;
+                    case "formes":
+                        this.oos.writeUTF("formes");
+                        this.oos.writeObject(Serveur.getShapes());
+                        this.oos.flush();
+                        break;
+                    case "retourAvant":
+                        break;
+                    case "quitter":
+                        connexionVersClient.close();
+                        break;
+                }
+                commande = attendreCommande();
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
         }
-        return null;
+    }
+
+    public void sendShape(ShapeSpec shape) throws IOException{
+      this.oos.writeUTF("shape");
+      this.oos.writeObject(shape);
+    }
+
+    public void sendAutreShape(ShapeSpec shapes) throws IOException{
+      this.oos.writeUTF("sendAutreShape");
+      this.oos.writeObject(shapes);
+    }
+
+    public String attendreCommande() throws IOException {
+        String commande = this.ois.readUTF();
+        return commande;
     }
 
     public String getNom(){
@@ -100,22 +83,15 @@ public class Service extends Thread{
     }
 
     public void dessinerRond(int x, int y, int rayon){
-        pwServeur.println("DessinerRond " + x + " " + y + " " + rayon);
+        
     }
 
     public int getNbshapes(){
-        pwServeur.println("getNbshapes");
-        int nb=-1;
-        try{
-             nb = Integer.parseInt(brServeur.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return nb;
+        return 0;
     }
 
     public void removeLastShape(){
-        pwClient.println("removeLastShape");
+        
     }
 
 }

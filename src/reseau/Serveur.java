@@ -14,8 +14,7 @@ public class Serveur {
             while (true) {
                 Socket clientSocket = serverSocket.accept();            
                 System.out.println("Client connecté: " + clientSocket);
-                String nom = demanderNom(clientSocket);
-                Service s = new Service(nom, clientSocket, this);
+                Service s = new Service(clientSocket, this);
                 System.out.println("Lancement du service");
                 s.start();
                 alClients.add(s);   
@@ -46,7 +45,7 @@ public class Serveur {
         return null;
     }
 
-    private static boolean nomLibre(String nom){
+    public static boolean nomLibre(String nom){
         if(alClients.isEmpty()){
             return true;
         }
@@ -67,10 +66,26 @@ public class Serveur {
         }
     }
 
-    public void addShape(ShapeSpec sp){
+    public void addShape(Service service, ShapeSpec sp){
         this.shapes.add(sp);
+
+        for(Service s : alClients){
+            if(s != service){
+                try
+                {
+                    s.sendAutreShape(sp);
+                } catch (IOException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
         System.out.println("Objet ajouté");
     }
 
-
+    public static List<ShapeSpec> getShapes()
+    {
+        return shapes;
+    }
 }

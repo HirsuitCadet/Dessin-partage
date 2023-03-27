@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controleur {
 
@@ -32,7 +34,24 @@ public class Controleur {
         return frmDessin.getNbShapes();
     }
 
-    public void addShape(ShapeSpec shape){
-        client.addShape(shape);
+    public void addShape(ShapeSpec shape, boolean envoyerReseau) {
+        frmDessin.addShape(shape);
+        if(envoyerReseau) {
+            try
+            {
+                client.addShape(shape);
+            } catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        // MAJ IHM
+
+    }
+
+    public void setShapes(ArrayList<ShapeSpec> shapes) {
+        frmDessin.setShapes(shapes);
     }
 }
