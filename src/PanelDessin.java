@@ -1,8 +1,14 @@
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
@@ -14,7 +20,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.awt.Color;
 
-public class PanelDessin extends JPanel implements ActionListener, ItemListener{
+public class PanelDessin extends JPanel implements ActionListener, ItemListener, ChangeListener{
 
     Controleur ctrl;
 
@@ -23,8 +29,11 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
 
     JButton[] boutonsFonctions;
     CheckboxGroup cbg;
-    Checkbox[] cbFonctions;
+    JCheckBox[] cbFonctions;
+    ButtonGroup group;
     JCheckBox cbFilled;
+
+    JSlider slider;
 
     public PanelDessin(Controleur controleur){
 
@@ -33,28 +42,37 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
         this.setLayout(new BorderLayout());
 
         panelBoutonsFonctions = new JPanel();
-        panelBoutonsFonctions.setLayout(new GridLayout(1,8));
+        panelBoutonsFonctions.setLayout(new GridLayout(9,1));
         System.out.println("PanelBouton créé");
 
         panelMilieu = new PanelMilieu(ctrl);
 
         this.boutonsFonctions = new JButton[3];
         this.cbg = new CheckboxGroup();
-        this.cbFonctions = new Checkbox[4];
+        this.cbFonctions = new JCheckBox[4];
+        this.group = new ButtonGroup();
 
         //Création des boutons
         boutonsFonctions[0] = new JButton();
         boutonsFonctions[0].setBackground(Color.BLACK);
-        boutonsFonctions[1] = new JButton("Retour Arriere");
+        boutonsFonctions[1] = new JButton(new ImageIcon("./img/retour.png"));
         boutonsFonctions[2] = new JButton("Retour Avant");
+        boutonsFonctions[2].setEnabled(false);
 
-        cbFonctions[0] = new Checkbox("Rectangle", cbg, true);
-        cbFonctions[1] = new Checkbox("Cercle", cbg, false);
-        cbFonctions[2] = new Checkbox("Ligne", cbg, false);
-        cbFonctions[3] = new Checkbox("Texte", cbg, false);
+        cbFonctions[0] = new JCheckBox("Rectangle",new ImageIcon("./img/rectangle.png"));
+        cbFonctions[0].setBackground(new Color(140,140,140));
+        cbFonctions[1] = new JCheckBox("Cercle", new ImageIcon("./img/cercle.png"));
+        cbFonctions[2] = new JCheckBox("Ligne", new ImageIcon("./img/ligne.png"));
+        cbFonctions[3] = new JCheckBox("Texte");
         cbFonctions[3].setEnabled(false);
 
+        for (JCheckBox cb : cbFonctions){
+            group.add(cb);
+        }
+
         cbFilled = new JCheckBox("Remplir");
+
+        slider = new JSlider(1,30,1);
 
         //Ajout des boutons au panel
         for(int i=0; i<boutonsFonctions.length; i++){
@@ -65,18 +83,20 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
             panelBoutonsFonctions.add(cbFonctions[i]);
         }
         panelBoutonsFonctions.add(cbFilled);
+        panelBoutonsFonctions.add(slider);
 
 
         //Ajout des listeners
         for(JButton btn : boutonsFonctions){
             btn.addActionListener(this);
         }
-        for(Checkbox cb : cbFonctions){
+        for(JCheckBox cb : cbFonctions){
             cb.addItemListener(this);
         }
         cbFilled.addItemListener(this);
+        slider.addChangeListener(this);
 
-        this.add(panelBoutonsFonctions, BorderLayout.NORTH);
+        this.add(panelBoutonsFonctions, BorderLayout.WEST);
         this.add(panelMilieu, BorderLayout.CENTER);
     }
 
@@ -114,17 +134,17 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
             dialog.setVisible(true);
             Color color = colorChooser.getColor();
             this.boutonsFonctions[0].setBackground(color);
-            this.ctrl.setCouleurActuelle(color);
+            this.panelMilieu.setCouleurActuelle(color);
         }
 
         if(e.getSource() == boutonsFonctions[1]) // Retour Arriere
         {
-            ctrl.adjustNbActif(-1);
+            this.panelMilieu.adjustNbActif(-1);
         }
 
         if (e.getSource() == boutonsFonctions[2]) // Retour Avant
         {
-            ctrl.adjustNbActif(1);
+            this.panelMilieu.adjustNbActif(1);
         }
     }
     
@@ -133,14 +153,24 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
         {
             if (e.getSource() == cbFonctions[i])
             {
-                this.ctrl.setFormeActuelle(cbFonctions[i].getLabel());
+                cbFonctions[i].setBackground(new Color(140,140,140));
+                this.panelMilieu.setFormeActuelle(cbFonctions[i].getText());
+            }
+            else
+            {
+                cbFonctions[i].setBackground(new JPanel().getBackground());
             }
         }
 
         if (e.getSource() == this.cbFilled)
         {
-            this.ctrl.setIsFilled(cbFilled.isSelected());
+            this.panelMilieu.setIsFilled(cbFilled.isSelected());
         }
+    }
+
+    public void stateChanged(ChangeEvent e)
+    {
+        this.panelMilieu.setStrokeSize(slider.getValue());
     }
 
     public PanelMilieu getPanelMilieu() {

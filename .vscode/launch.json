@@ -9,6 +9,13 @@
             "name": "Starter",
             "request": "launch",
             "mainClass": "Starter",
+            "projectName": "Dessin-partage_b18c08a1"
+        },
+        {
+            "type": "java",
+            "name": "Starter",
+            "request": "launch",
+            "mainClass": "Starter",
             "projectName": "Dessin-partage_313c5c5a"
         },
         {

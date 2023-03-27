@@ -1,12 +1,13 @@
 import javax.swing.JPanel;
 
 import java.awt.Point;
-
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,6 +20,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 	String formeActuelle;
 	Color couleurActuelle;
 	boolean isFilled;
+	int strokeSize;
 
 	Point posSourisDebut;
 	Point posSourisFin;
@@ -66,6 +68,11 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		this.isFilled = isFilled;
 	}
 
+	public void setStrokeSize(int size)
+	{
+		this.strokeSize = size;
+	}
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -74,6 +81,7 @@ public class PanelMilieu extends JPanel implements MouseListener{
 		{
 			ShapeSpec s = (ShapeSpec) listeFormes.get(i);
 			g2.setColor(s.getColor());
+			g2.setStroke(new BasicStroke((float)s.getStroke()));
 			
 			if (s.isFilled())
 				g2.fill(s.getShape());
@@ -110,21 +118,21 @@ public class PanelMilieu extends JPanel implements MouseListener{
 			case "Rectangle":
 
 				this.listeFormes.add(new ShapeSpec(new Rectangle2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
-									couleurActuelle, isFilled));
+									couleurActuelle, isFilled, strokeSize));
 				ctrl.addShape(this.listeFormes.get(nbActif), true);
 				nbActif++;
 				break;
 		
 			case "Cercle":
 				this.listeFormes.add(new ShapeSpec(new Ellipse2D.Double(xDebut, yDebut, xFin - xDebut, yFin - yDebut),
-									couleurActuelle, isFilled));
+									couleurActuelle, isFilled, strokeSize));
 				ctrl.addShape(this.listeFormes.get(nbActif), true);
 				nbActif++;
 				break;
 
 			case "Ligne":
 				this.listeFormes.add(new ShapeSpec(new Line2D.Double(posSourisDebut.x, posSourisDebut.y, posSourisFin.x, posSourisFin.y),
-									couleurActuelle, false));
+									couleurActuelle, false, strokeSize));
 				ctrl.addShape(this.listeFormes.get(nbActif), true);	
 				nbActif++;
 				break;
