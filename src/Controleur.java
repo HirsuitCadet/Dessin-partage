@@ -12,24 +12,6 @@ public class Controleur {
         frmDessin = new FrameDessin(this);              
     }
 
-    public void setCouleurActuelle(Color couleur) {
-        frmDessin.setCouleurActuelle(couleur);
-    }
-
-    public void setFormeActuelle(String forme){
-        frmDessin.setFormeActuelle(forme);
-    }
-
-    public void adjustNbActif(int nb)
-    {
-        frmDessin.adjustNbActif(nb);
-    }
-
-    public void setIsFilled(boolean isFilled)
-    {
-        frmDessin.setIsFilled(isFilled);
-    }
-
     public int getNbshapes(){
         return frmDessin.getNbShapes();
     }

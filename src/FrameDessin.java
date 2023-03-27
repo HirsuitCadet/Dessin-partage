@@ -26,26 +26,6 @@ public class FrameDessin extends JFrame{
         this.setVisible(true);
     }
 
-    public void setCouleurActuelle(Color couleur)
-    {
-        panelDessin.setCouleurActuelle(couleur);
-    }
-
-    public void setFormeActuelle(String forme)
-    {
-        panelDessin.setFormeActuelle(forme);
-    }
-
-    public void adjustNbActif(int nb)
-    {
-        panelDessin.adjustNbActif(nb);
-    }
-
-    public void setIsFilled(boolean isFilled)
-    {
-        panelDessin.setIsFilled(isFilled);
-    }
-
     public PanelDessin getPanelDessin() {
         return panelDessin;
     }
