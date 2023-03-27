@@ -181,5 +181,11 @@ public class PanelMilieu extends JPanel implements MouseListener{
         this.listeFormes = shapes;
 		this.nbActif = shapes.size();
     }
+
+	public void retour(){
+		System.out.println("retourrrr");
+		this.listeFormes.remove(this.listeFormes.size()-1);
+		this.nbActif--;
+	}
 	
 }

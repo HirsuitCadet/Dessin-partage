@@ -72,7 +72,13 @@ public class Client extends Thread{
                         ShapeSpec shape2 = (ShapeSpec)ois.readObject();
                         ctrl.addShape(shape2, false);
                         break;
-                    
+
+                    case "retourArriere":
+                        ctrl.retour(true);
+                        break;
+                    case "retourArriere2":
+                        ctrl.retour(false);
+                        break;                    
                     case "formes":
                         ArrayList<ShapeSpec> shapes = (ArrayList<ShapeSpec>)ois.readObject();
                         ctrl.setShapes(shapes);
@@ -80,9 +86,9 @@ public class Client extends Thread{
                 }
             }
         } catch(Exception ex) {
-            System.out.println("Client fermé");
+            System.out.println("Serveur fermé");
             this.ctrl.closeFrame();
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
     }
 
@@ -96,6 +102,15 @@ public class Client extends Thread{
         this.oos.writeUTF("shape");
         this.oos.writeObject(shapeSpec);
         this.oos.flush();
+    }
+
+    public void retour(){
+        try {
+            this.oos.writeUTF("retourArriere");
+            this.oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

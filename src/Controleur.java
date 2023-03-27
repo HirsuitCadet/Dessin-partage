@@ -56,7 +56,18 @@ public class Controleur {
         frmDessin.setShapes(shapes);
     }
 
+    public void retour(boolean envoyerReseau){
+        frmDessin.retour();
+        if(envoyerReseau) {        
+            client.retour();            
+        }
+        this.frmDessin.repaint();
+         
+    }
+
     public void closeFrame(){
         frmDessin.dispose();
     }
+
+
 }

@@ -57,14 +57,6 @@ public class Serveur {
         return true;
     }
 
-    public void retourArriere(){
-        if(!shapes.isEmpty()){
-            shapes.remove(shapes.size()-1);
-        }
-        for (Service s : alClients) {
-            s.removeLastShape();
-        }
-    }
 
     public void addShape(Service service, ShapeSpec sp){
         this.shapes.add(sp);
@@ -82,6 +74,25 @@ public class Serveur {
             }
         }
         System.out.println("Objet ajouté");
+    }
+
+    public void retour(Service service){
+        if(!this.shapes.isEmpty()){
+            this.shapes.remove(this.shapes.size()-1);
+            for(Service s: alClients){
+                if(s != service){
+                    try{
+                        s.retourArriere2();
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            System.out.println("Retour Arrière");
+        }else{
+            System.out.println("Pas de forme à supprimer");
+        }
+       
     }
 
     public static List<ShapeSpec> getShapes()

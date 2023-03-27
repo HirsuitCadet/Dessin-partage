@@ -55,6 +55,12 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
         cbFonctions[3].setEnabled(false);
 
         cbFilled = new JCheckBox("Remplir");
+        boutonsFonctions[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ctrl.retour(true);
+            }
+        });
 
         //Ajout des boutons au panel
         for(int i=0; i<boutonsFonctions.length; i++){
@@ -153,5 +159,9 @@ public class PanelDessin extends JPanel implements ActionListener, ItemListener{
 
     public void setShapes(ArrayList<ShapeSpec> shapes) {
         this.panelMilieu.setShapes(shapes);
+    }
+
+    public void retour(){
+        this.panelMilieu.retour();
     }
 }

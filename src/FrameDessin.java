@@ -61,4 +61,8 @@ public class FrameDessin extends JFrame{
     public void setShapes(ArrayList<ShapeSpec> shapes) {
         this.panelDessin.setShapes(shapes);
     }
+
+    public void retour(){
+        panelDessin.retour();
+    }
 }

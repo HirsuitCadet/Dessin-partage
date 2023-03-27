@@ -50,7 +50,8 @@ public class Service extends Thread{
                         this.oos.writeObject(Serveur.getShapes());
                         this.oos.flush();
                         break;
-                    case "retourAvant":
+                    case "retourArriere":
+                        serveur.retour(this);
                         break;
                     case "quitter":
                         connexionVersClient.close();
@@ -66,6 +67,14 @@ public class Service extends Thread{
     public void sendShape(ShapeSpec shape) throws IOException{
       this.oos.writeUTF("shape");
       this.oos.writeObject(shape);
+    }
+
+    public void retourArriere() throws IOException{
+        this.oos.writeUTF("retourArriere");
+    }
+
+    public void retourArriere2() throws IOException{
+        this.oos.writeUTF("retourArriere2");
     }
 
     public void sendAutreShape(ShapeSpec shapes) throws IOException{
